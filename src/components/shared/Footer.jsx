@@ -1,0 +1,174 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "motion/react";
+import { FaGithub, FaLinkedin, FaFacebookF } from "react-icons/fa";
+import { BsTwitterX } from "react-icons/bs";
+
+export default function Footer() {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.05,
+                delayChildren: 0.1
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 10 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { duration: 0.4, ease: "easeOut" } 
+        }
+    };
+
+    return (
+        <footer 
+            className="border-t w-full"
+            style={{ 
+                backgroundColor: '#ebdcc9', 
+                borderColor: 'rgba(44, 34, 30, 0.1)', 
+                color: '#4a3b35'            
+            }}
+        >
+            <motion.div 
+                className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-40px" }}
+            >
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6 items-start">
+
+                    {/* Column 1: Brand Info */}
+                    <motion.div variants={itemVariants} className="space-y-4 max-w-xs">
+                        <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-amber-900/10 text-[#2c221e]">
+                                ✨
+                            </div>
+                            <span className="text-xl font-bold tracking-tight text-[#2c221e]">
+                                JobsHunting
+                            </span>
+                        </div>
+                        <p className="text-sm leading-relaxed opacity-80">
+                            Connecting talented professionals with top-tier companies. Build your career, find your dream job, or hire the perfect candidate with ease.
+                        </p>
+                    </motion.div>
+
+                    {/* Column 2: Platform Links */}
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h3 className="text-xs font-bold tracking-wider uppercase text-[#2c221e]">
+                            Platform
+                        </h3>
+                        <ul className="space-y-3 text-sm opacity-85">
+                            {[
+                                { text: "Browse Jobs", href: "/jobs" },
+                                { text: "Build Profile", href: "/dashboard/seeker/profile" },
+                                { text: "Application Tracking", href: "/dashboard/seeker/applications" },
+                                { text: "Bookmarked Jobs", href: "/dashboard/seeker/bookmarks" }
+                            ].map((link, i) => (
+                                <li key={i}>
+                                    <Link href={link.href} className="hover:text-[#2c221e] transition-colors duration-200 block">
+                                        {link.text}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
+
+                    {/* Column 3: Resources Links */}
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h3 className="text-xs font-bold tracking-wider uppercase text-[#2c221e]">
+                            Resources
+                        </h3>
+                        <ul className="space-y-3 text-sm opacity-85">
+                            {[
+                                { text: "About Us", href: "/about" },
+                                { text: "Privacy Policy", href: "/privacy" },
+                                { text: "Terms of Service", href: "/terms" }
+                            ].map((link, i) => (
+                                <li key={i}>
+                                    <Link href={link.href} className="hover:text-[#2c221e] transition-colors duration-200 block">
+                                        {link.text}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.div>
+
+                    {/* Column 4: Connect & Support */}
+                    <motion.div variants={itemVariants} className="space-y-5">
+                        <h3 className="text-xs font-bold tracking-wider uppercase text-[#2c221e]">
+                            Connect
+                        </h3>
+                        
+                        {/* Image Style Square-Rounded Social Box */}
+                        <div className="flex gap-2.5 ">
+                            {[
+                                { icon: <BsTwitterX size={15} />, href: "https://twitter.com" },
+                                { icon: <FaGithub size={16} />, href: "https://github.com" },
+                                { icon: <FaLinkedin size={16} />, href: "https://linkedin.com" },
+                                { icon: <FaFacebookF size={15} />, href: "https://facebook.com" }
+                            ].map((social, i) => (
+                                <motion.a 
+                                    key={i}
+                                    href={social.href}
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="w-10 h-10 rounded-xl hover:shadow-2xl flex items-center justify-center transition-all duration-200 border"
+                                    style={{ 
+                                        color: '#4a3b35',
+                                        borderColor: 'rgba(74, 59, 53, 0.15)',
+                                        backgroundColor: 'rgba(74, 59, 53, 0.03)'
+                                    }}
+                                    whileHover={{ y: -2 }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'rgba(74, 59, 53, 0.08)';
+                                        e.currentTarget.style.color = '#2c221e';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.backgroundColor = 'rgba(74, 59, 53, 0.03)';
+                                        e.currentTarget.style.color = '#4a3b35';
+                                    }}
+                                >
+                                    {social.icon}
+                                </motion.a>
+                            ))}
+                        </div>
+
+                        <div className="space-y-1.5 pt-2">
+                            <span className="text-[11px] font-bold tracking-wider uppercase opacity-70 block">
+                                Questions? Support at:
+                            </span>
+                            <a 
+                                href="mailto:Help@jobshunting.com" 
+                                className="text-sm font-bold transition-opacity hover:opacity-80 block"
+                                style={{ color: '#2c221e' }}
+                            >
+                                Help@jobshunting.com
+                            </a>
+                        </div>
+                    </motion.div>
+
+                </div>
+
+                {/* Center Bottom Copyright section like image_c519e3.png */}
+                <motion.div 
+                    variants={itemVariants}
+                    className="mt-16 border-t pt-8 text-center text-xs font-medium opacity-80"
+                    style={{ borderColor: 'rgba(44, 34, 30, 0.1)' }}
+                >
+                    <p>
+                        &copy; {new Date().getFullYear()} JobsHunting. All rights reserved. Created with{" "}
+                        <span className="text-red-700">❤️</span> by{" "}
+                        <span className="font-bold text-[#2c221e]">Shanto Dev Sharma</span>
+                    </p>
+                </motion.div>
+            </motion.div>
+        </footer>
+    );
+}
