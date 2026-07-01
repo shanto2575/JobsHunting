@@ -44,7 +44,7 @@ export default function DashboardSideBar() {
             {
                 icon: User,
                 label: "Profile",
-                link: "/dashboard/seeker/profile",
+                link: "/dashboard/seeker",
             },
             {
                 icon: Briefcase,
@@ -68,7 +68,12 @@ export default function DashboardSideBar() {
             {
                 icon: User,
                 label: "Profile",
-                link: "/dashboard/employer/profile",
+                link: "/dashboard/employer",
+            },
+            {
+                icon: FileText,
+                label: "Post Job",
+                link: "/dashboard/employer/post-job",
             },
             {
                 icon: FileText,

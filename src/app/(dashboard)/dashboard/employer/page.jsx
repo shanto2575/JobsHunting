@@ -1,8 +1,11 @@
+import DashboardProfileCard from '@/components/Dashboard/Employer/EmployerProfile'
 import React from 'react'
 
 const EmployerMainPage = () => {
     return (
-        <div>EmployerMainPage</div>
+        <div>
+            <DashboardProfileCard/>
+        </div>
     )
 }
 
