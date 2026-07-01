@@ -18,9 +18,9 @@ export default function Navbar() {
 
     const getDashboardLink = () => {
         if (!user) return "/signin";
-        if (user.role === "job_seeker") return "/dashboard/job-seeker";
-        if (user.role === "employer") return "/dashboard/employer";
-        if (user.role === "admin") return "/dashboard/admin";
+        if (user?.role === "seeker") return "/dashboard/seeker";
+        if (user?.role === "employer") return "/dashboard/employer";
+        if (user?.role === "admin") return "/dashboard/admin";
         return "/dashboard";
     };
 
@@ -30,11 +30,11 @@ export default function Navbar() {
 
     return (
         <div className="w-full sticky top-4 z-50 px-4 sm:px-6 lg:px-8">
-            <nav 
+            <nav
                 className="max-w-7xl mx-auto rounded-full backdrop-blur-xl shadow-[0_10px_30px_-10px_rgba(44,34,30,0.3)] border transition-all duration-300"
-                style={{ 
-                    backgroundColor: 'rgba(44, 34, 30, 0.9)', 
-                    borderColor: 'rgba(74, 59, 53, 0.5)', 
+                style={{
+                    backgroundColor: 'rgba(44, 34, 30, 0.9)',
+                    borderColor: 'rgba(74, 59, 53, 0.5)',
                 }}
             >
                 <div className="px-6 lg:px-8">
@@ -82,9 +82,9 @@ export default function Navbar() {
                                     <Link
                                         href="/signup"
                                         className="px-5 py-1.5 text-xs font-bold rounded-full transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-[0.98]"
-                                        style={{ 
-                                            backgroundColor: '#ebdcc9', 
-                                            color: '#2c221e' 
+                                        style={{
+                                            backgroundColor: '#ebdcc9',
+                                            color: '#2c221e'
                                         }}
                                     >
                                         Sign Up
@@ -94,7 +94,11 @@ export default function Navbar() {
                                 <div className="flex items-center gap-4 pl-3 border-l" style={{ borderColor: 'rgba(235, 220, 201, 0.2)' }}>
                                     <div className="flex items-center gap-2">
                                         <Image
-                                            src={user.image }
+                                            src={
+                                                user?.image?.startsWith("http")
+                                                    ? user.image
+                                                    : "/user.jpg"
+                                            }
                                             width={300}
                                             height={300}
                                             alt="Profile"
@@ -124,9 +128,9 @@ export default function Navbar() {
                 </div>
 
                 {isOpen && (
-                    <div 
+                    <div
                         className="md:hidden mx-2 mb-2 px-4 py-4 space-y-2 font-medium rounded-3xl shadow-xl border animate-in fade-in slide-in-from-top-2 duration-300"
-                        style={{ 
+                        style={{
                             backgroundColor: '#2c221e',
                             borderColor: '#4a3b35'
                         }}
@@ -143,8 +147,8 @@ export default function Navbar() {
                         ))}
 
                         {user && (
-                            <Link 
-                                href={getDashboardLink()} 
+                            <Link
+                                href={getDashboardLink()}
                                 className="block py-2 px-3 text-sm rounded-xl transition-colors text-gray-300 hover:bg-white/5 hover:text-white"
                                 onClick={() => setIsOpen(false)}
                             >
@@ -155,16 +159,16 @@ export default function Navbar() {
                         <div className="pt-3 mt-2 border-t" style={{ borderColor: 'rgba(235, 220, 201, 0.1)' }}>
                             {!user ? (
                                 <div className="grid grid-cols-2 gap-3">
-                                    <Link 
-                                        href="/login" 
+                                    <Link
+                                        href="/login"
                                         className="block text-center py-2 border rounded-full text-xs font-semibold text-[#ebdcc9]"
                                         style={{ borderColor: 'rgba(235, 220, 201, 0.3)' }}
                                         onClick={() => setIsOpen(false)}
                                     >
                                         Login
                                     </Link>
-                                    <Link 
-                                        href="/signup" 
+                                    <Link
+                                        href="/signup"
                                         className="block text-center py-2 rounded-full text-xs font-bold"
                                         style={{ backgroundColor: '#ebdcc9', color: '#2c221e' }}
                                         onClick={() => setIsOpen(false)}
@@ -176,7 +180,11 @@ export default function Navbar() {
                                 <div className="flex items-center justify-between px-3 py-1">
                                     <div className="flex items-center gap-3">
                                         <Image
-                                            src={user.image}
+                                            src={
+                                                user?.image?.startsWith("http")
+                                                    ? user.image
+                                                    : "/user.jpg"
+                                            }
                                             alt="Profile"
                                             width={300}
                                             height={300}

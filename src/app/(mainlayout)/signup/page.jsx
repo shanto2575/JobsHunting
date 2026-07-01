@@ -33,6 +33,7 @@ export default function SignUpPage() {
             password:e.password,
             name:e.name,
             image:e.image,
+            role:e.role,
             callbackURL: "/" 
         })
         if(data){
