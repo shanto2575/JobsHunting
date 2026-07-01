@@ -1,6 +1,7 @@
 import Footer from '@/components/shared/Footer'
 import Navbar from '@/components/shared/Navbar'
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
 
 const MainLayout = ({ children }) => {
     return (
@@ -20,6 +21,9 @@ const MainLayout = ({ children }) => {
             </main>
             <div className="relative z-20 ">
                 <Footer />
+            </div>
+            <div>
+                <Toaster />
             </div>
         </div>
     )

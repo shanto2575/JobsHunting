@@ -4,9 +4,13 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import { showToast } from "@/Util/toast";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
-    const themeBg = "#ebdcc9"; 
+    const route=useRouter()
+    const themeBg = "#ebdcc9";
     const textDark = "#2c221e";
     const textMuted = "#4a3b35";
 
@@ -18,8 +22,19 @@ export default function SignInPage() {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (e) => {
+        const { data, error } = await authClient.signIn.email({
+            email:e.email,
+            password:e.password,
+            callbackURL: "/"
+        })
+        if(data){
+            showToast.success('LogIn Successful')
+            route.push('/')
+        }
+        if(error){
+            showToast.error(error.message)
+        }
     };
 
     const fadeUp = {
@@ -34,8 +49,8 @@ export default function SignInPage() {
     };
 
     return (
-        <div 
-            className="min-h-screen flex flex-col lg:flex-row selection:bg-[#2c221e]/10 overflow-x-hidden" 
+        <div
+            className="min-h-screen flex flex-col lg:flex-row selection:bg-[#2c221e]/10 overflow-x-hidden"
             style={{ backgroundColor: themeBg }}
         >
             <div className="hidden lg:flex flex-col justify-between w-1/2 p-20 relative overflow-hidden">
@@ -54,18 +69,18 @@ export default function SignInPage() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.35 }}
-                        className="text-base leading-relaxed font-medium opacity-80" 
+                        className="text-base leading-relaxed font-medium opacity-80"
                         style={{ color: textMuted }}
                     >
                         Connect with top companies and explore thousands of opportunities tailored exactly to your skills.
                     </motion.p>
                 </div>
 
-                <motion.p 
+                <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 0.5 }}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="text-xs font-semibold" 
+                    className="text-xs font-semibold"
                     style={{ color: textMuted }}
                 >
                     &copy; {new Date().getFullYear()} JobsHunting. Premium Platform.
@@ -78,8 +93,8 @@ export default function SignInPage() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ duration: 0.6 }}
                     className="w-full max-w-md p-8 md:p-10 rounded-3xl border"
-                    style={{ 
-                        backgroundColor: "rgba(255, 255, 255, 0.4)", 
+                    style={{
+                        backgroundColor: "rgba(255, 255, 255, 0.4)",
                         borderColor: "rgba(74, 59, 53, 0.12)",
                         boxShadow: "0 20px 40px -15px rgba(44, 34, 30, 0.05)"
                     }}
@@ -168,7 +183,7 @@ export default function SignInPage() {
                         Don’t have an account?{" "}
                         <Link
                             href="/signup"
-                            className="font-bold underline underline-offset-4 hover:opacity-80 transition-opacity" 
+                            className="font-bold underline underline-offset-4 hover:opacity-80 transition-opacity"
                             style={{ color: textDark }}
                         >
                             Sign Up

@@ -4,8 +4,13 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
+import { showToast } from "@/Util/toast";
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
+    const route=useRouter()
     const themeBg = "#ebdcc9";
     const textDark = "#2c221e";
     const textMuted = "#4a3b35";
@@ -21,8 +26,23 @@ export default function SignUpPage() {
 
     const errorClass = "text-red-500 text-xs mt-1";
 
-    const onSubmit = (data) => {
 
+    const onSubmit = async (e) => {
+        const { data, error } = await authClient.signUp.email({
+            email:e.email,
+            password:e.password,
+            name:e.name,
+            image:e.image,
+            callbackURL: "/" 
+        })
+        if(data){
+            showToast.success('SignUp Successful')
+            route.push('/')
+
+        }
+        if(error){
+            showToast.error(error.message)
+        }
     };
 
     return (
