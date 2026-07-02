@@ -11,6 +11,7 @@ import {
     Eye,
 } from "lucide-react";
 import { EmployerEditJobs } from "./EmployerEditJobs";
+import { DeletePostedJobs } from "./DeletePostedJobs";
 
 export default function PostedJobsCard({ job }) {
     return (
@@ -26,11 +27,10 @@ export default function PostedJobsCard({ job }) {
 
                 <div className="absolute top-4 right-4 z-10">
                     <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-sm border ${
-                            job.status === "active"
+                        className={`px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase backdrop-blur-md shadow-sm border ${job.status === "active"
                                 ? "bg-emerald-50/80 text-emerald-700 border-emerald-200"
                                 : "bg-rose-50/80 text-rose-700 border-rose-200"
-                        }`}
+                            }`}
                     >
                         {job.status}
                     </span>
@@ -39,7 +39,7 @@ export default function PostedJobsCard({ job }) {
 
             {/* Card Body Content */}
             <div className="p-6">
-                
+
                 <div>
                     <h2 className="text-xl font-black text-[#2c221e] line-clamp-1 tracking-tight">
                         {job.title}
@@ -96,21 +96,15 @@ export default function PostedJobsCard({ job }) {
                     {job.description}
                 </p>
 
-                <div className="mt-6 flex flex-wrap sm:flex-nowrap gap-2.5">
-                    
-                    {/* Custom Edit Component */}
-                    <div className="w-full sm:flex-1">
-                        <EmployerEditJobs job={job}/>
-                    </div>
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
 
-                    <button className="flex-1 w-full flex items-center justify-center gap-2 rounded-xl border border-rose-200 py-3 text-xs uppercase tracking-wider font-bold text-rose-600 bg-rose-50/30 transition-all duration-300 hover:bg-rose-50 hover:border-rose-300 active:scale-[0.98]">
-                        <Trash2 size={14} strokeWidth={2.5} />
-                        Delete
-                    </button>
+                    <EmployerEditJobs job={job} />
+
+                    <DeletePostedJobs job={job} />
 
                     <Link
                         href={`/jobs/${job._id}`}
-                        className="flex-1 w-full flex items-center justify-center gap-2 rounded-xl border border-[#dfcbaf] py-3 text-xs uppercase tracking-wider font-bold text-[#2c221e] bg-white/20 transition-all duration-300 hover:bg-[#2c221e] hover:text-[#ebdcc9] hover:border-[#2c221e] active:scale-[0.98] shadow-sm"
+                        className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#dfcbaf] py-3 text-xs uppercase tracking-wider font-bold text-[#2c221e] bg-white/20 transition-all duration-300 hover:bg-[#2c221e] hover:text-[#ebdcc9] hover:border-[#2c221e] active:scale-[0.98] shadow-sm"
                     >
                         <Eye size={14} strokeWidth={2.5} />
                         View

@@ -26,7 +26,7 @@ export default function PostsJob() {
         try {
             const Jobs = {
                 ...data,
-                image:image.url,
+                image: image.url,
                 userEmail: user.email,
                 userId: user?._id,
                 applicants: [],
@@ -177,8 +177,8 @@ export default function PostsJob() {
                         className={inputStyle}
                     />
                 </label>
-                 {/* Job Image / Company Logo */}
-                <label className={`${labelStyle} w-full`}>
+                {/* Job Image / Company Logo */}
+                <label className={`${labelStyle} md:col-span-2`}>
                     Company Logo
                     <input
                         type="file"
@@ -187,8 +187,8 @@ export default function PostsJob() {
                             required: "Company logo is required",
                         })}
                         className="block w-full rounded-xl border border-[#dfcbaf] bg-white/50 px-4 py-3 text-sm text-[#2c221e] outline-none cursor-pointer
-    file:mr-4 file:rounded-lg file:border-0 file:bg-[#2c221e]
-    file:px-4 file:py-2 file:text-[#ebdcc9] file:font-medium"
+                    file:mr-4 file:rounded-lg file:border-0 file:bg-[#2c221e]
+                    file:px-4 file:py-2 file:text-[#ebdcc9] file:font-medium"
                     />
                 </label>
 

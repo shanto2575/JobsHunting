@@ -3,11 +3,18 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Surface } from "@heroui/react";
 import { useForm } from "react-hook-form";
-import { Pencil } from "lucide-react"; 
+import { Pencil } from "lucide-react";
+import { UpdatedJobs } from "@/lib/api/employer/action";
+import { authClient } from "@/lib/auth-client";
+import { showToast } from "@/Util/toast";
+import { useRouter } from "next/navigation";
 
 export function EmployerEditJobs({ job }) {
     const [isOpen, setIsOpen] = useState(false);
+    const router=useRouter()
 
+    const { data: session } = authClient.useSession()
+    // console.log(session)
     const {
         register,
         handleSubmit,
@@ -32,11 +39,26 @@ export function EmployerEditJobs({ job }) {
             reset(job);
         }
     }, [job, reset]);
+    // console.log(job)
 
-    const onSubmit = (data) => {
-        console.log("Updated Job Data:", data);
-        setIsOpen(false); 
+    const onSubmit = async (data) => {
+        try {
+            const result = await UpdatedJobs(data, job._id)
+
+            if(result.success){
+                showToast.success('UpDated Successfull')
+                setIsOpen(false);
+                router.refresh()
+            }else{
+                showToast.error(result.message)
+            }
+        } catch (error) {
+            console.log('errer',error)
+            showToast.error('Something Went Wrong')
+        }
     };
+
+
 
     const inputStyle =
         "w-full rounded-xl border border-[#dfcbaf] bg-white/50 px-4 py-3 text-sm outline-none focus:border-[#2c221e] transition-all text-[#2c221e]";
@@ -48,7 +70,7 @@ export function EmployerEditJobs({ job }) {
 
     return (
         <div className="w-full flex-1">
-            <Button 
+            <Button
                 onClick={() => setIsOpen(true)}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#2c221e] py-3 text-xs uppercase tracking-wider font-bold text-[#ebdcc9] transition-all duration-300 hover:bg-[#4a3b35] active:scale-[0.98] px-6 shadow-sm h-auto"
             >
