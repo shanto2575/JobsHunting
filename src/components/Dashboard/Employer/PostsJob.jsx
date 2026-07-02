@@ -2,6 +2,7 @@
 
 import { AddJobs } from "@/lib/api/employer/action";
 import { authClient } from "@/lib/auth-client";
+import { imageUpload } from "@/lib/ImageUpload";
 import { serverMutation } from "@/lib/server";
 import { showToast } from "@/Util/toast";
 import { useRouter } from "next/navigation";
@@ -18,9 +19,14 @@ export default function PostsJob() {
     } = useForm();
 
     const onSubmit = async (data) => {
+
+        const image = await imageUpload(data?.image[0])
+        // console.log(image,'image')
+        // console.log(data,'data')
         try {
             const Jobs = {
                 ...data,
+                image:image.url,
                 userEmail: user.email,
                 userId: user?._id,
                 applicants: [],
@@ -61,7 +67,7 @@ export default function PostsJob() {
                 </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2  gap-5 ">
 
                 {/* Job Title */}
                 <label className={labelStyle}>
@@ -147,7 +153,6 @@ export default function PostsJob() {
                         className={inputStyle}
                     />
                 </label>
-
                 {/* Description */}
                 <label className={`${labelStyle} md:col-span-2`}>
                     Description
@@ -170,6 +175,20 @@ export default function PostsJob() {
                             required: "Deadline is required",
                         })}
                         className={inputStyle}
+                    />
+                </label>
+                 {/* Job Image / Company Logo */}
+                <label className={`${labelStyle} w-full`}>
+                    Company Logo
+                    <input
+                        type="file"
+                        accept="image/*"
+                        {...register("image", {
+                            required: "Company logo is required",
+                        })}
+                        className="block w-full rounded-xl border border-[#dfcbaf] bg-white/50 px-4 py-3 text-sm text-[#2c221e] outline-none cursor-pointer
+    file:mr-4 file:rounded-lg file:border-0 file:bg-[#2c221e]
+    file:px-4 file:py-2 file:text-[#ebdcc9] file:font-medium"
                     />
                 </label>
 
