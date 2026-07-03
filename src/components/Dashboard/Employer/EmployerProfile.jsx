@@ -20,13 +20,10 @@ export default function DashboardOverviewCard() {
     return (
         <div className="w-full rounded-3xl border border-[#dfcbaf] bg-white/30 backdrop-blur-xl p-6 shadow-[0_20px_40px_-15px_rgba(44,34,30,0.08)]">
 
-            {/* Top Section */}
             <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between">
 
-                {/* Left Side */}
                 <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
 
-                    {/* Avatar */}
                     <div className="relative">
                         <Image
                             src={

@@ -25,7 +25,7 @@ export default function AllJobsPage({job}) {
             jobType,
             workplace
         };
-        console.log("Sending to Server:", filterQueryParams);
+        // console.log("Sending to Server:", filterQueryParams);
         
         // উদাহরণ (Next.js URL Query Update):
         // router.push(`/jobs?search=${search}&category=${category}...`)

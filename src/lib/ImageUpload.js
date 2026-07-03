@@ -1,3 +1,5 @@
+import { baseUrl } from "./baseUrl";
+
 export const imageUpload = async (image) => {
     // console.log("KEY:", process.env.NEXT_PUBLIC_IMAGE_KEY);
 
@@ -17,3 +19,4 @@ export const imageUpload = async (image) => {
 
     return data.data;
 };
+

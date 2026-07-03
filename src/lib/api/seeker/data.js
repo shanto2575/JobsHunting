@@ -5,7 +5,3 @@ export const AllJobs=async()=>{
     return res;
 }
 
-export const GetSingleJob = async (id) => {
-    const res = await serverFetch(`/api/alljobs/${id}`);
-    return res.result;
-};

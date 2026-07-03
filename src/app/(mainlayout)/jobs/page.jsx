@@ -4,7 +4,7 @@ import React from 'react'
 
 const JobsMainPage =async () => {
 const jobs=await AllJobs()
-console.log(jobs)
+// console.log(jobs)
     return (
         <div className='w-full'>
             <AllJobsPage job={jobs?.result || []}/>
