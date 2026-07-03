@@ -92,7 +92,7 @@ export default function Navbar() {
                                 </>
                             ) : (
                                 <div className="flex items-center gap-4 pl-3 border-l" style={{ borderColor: 'rgba(235, 220, 201, 0.2)' }}>
-                                    <div className="flex items-center gap-2">
+                                    <Link href={getDashboardLink()} className="flex items-center gap-2">
                                         <Image
                                             src={
                                                 user?.image?.startsWith("http")
@@ -106,7 +106,7 @@ export default function Navbar() {
                                             style={{ borderColor: '#dfcbaf' }}
                                         />
                                         <span className="text-xs font-semibold" style={{ color: '#ebdcc9' }}>{user.name}</span>
-                                    </div>
+                                    </Link>
                                     <button
                                         onClick={handleSignOut}
                                         className="p-1.5 rounded  text-red-400 hover:text-white transition-colors duration-200 flex items-center justify-center gap-2"
@@ -178,7 +178,7 @@ export default function Navbar() {
                                 </div>
                             ) : (
                                 <div className="flex items-center justify-between px-3 py-1">
-                                    <div className="flex items-center gap-3">
+                                    <Link href={getDashboardLink()} className="flex items-center gap-3">
                                         <Image
                                             src={
                                                 user?.image?.startsWith("http")
@@ -192,7 +192,7 @@ export default function Navbar() {
                                             style={{ borderColor: '#dfcbaf' }}
                                         />
                                         <span className="text-sm font-semibold text-[#ebdcc9]">{user.name}</span>
-                                    </div>
+                                    </Link>
                                     <button
                                         onClick={() => {
                                             handleSignOut();

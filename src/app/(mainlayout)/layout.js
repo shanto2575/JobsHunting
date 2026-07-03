@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast'
 const MainLayout = ({ children }) => {
     return (
         <div
-            className="relative min-h-screen flex flex-col antialiased selection:bg-[#2c221e]/10 selection:text-[#2c221e]"
+            className="relative  min-h-screen flex flex-col antialiased selection:bg-[#2c221e]/10 selection:text-[#2c221e]"
             style={{
                 backgroundColor: '#ebdcc9',
                 color: '#2c221e'
@@ -16,7 +16,7 @@ const MainLayout = ({ children }) => {
             <div className="relative z-20 mt-3 bg-[#ebdcc9]/90 backdrop-blur-md">
                 <Navbar />
             </div>
-            <main className="relative z-10 flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <main className="relative z-10 flex-grow w-full   py-10">
                 {children}
             </main>
             <div className="relative z-20 ">

@@ -1,9 +1,14 @@
 import React from 'react'
+import DashboardHeader from '../../DashboardHeader'
+import DashboardOverviewCard from '@/components/Dashboard/seeker/SeekerProfile'
 
-const SeekerMainPge = () => {
-  return (
-    <div>SeekerMainPge</div>
-  )
+const EmployerMainPage = () => {
+    return (
+        <div>
+            <DashboardHeader title="Profile" subtitle="Manage your employer profile" />
+            <DashboardOverviewCard/>
+        </div>
+    )
 }
 
-export default SeekerMainPge
+export default EmployerMainPage

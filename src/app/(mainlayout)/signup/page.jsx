@@ -148,7 +148,7 @@ export default function SignUpPage() {
                                 })}
                             >
                                 <option value="">Select Role</option>
-                                <option value="job_seeker">Job Seeker</option>
+                                <option value="seeker">Job Seeker</option>
                                 <option value="employer">Employer</option>
                             </select>
 
