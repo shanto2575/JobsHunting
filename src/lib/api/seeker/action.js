@@ -1,13 +1,6 @@
-// import { baseUrl } from "@/lib/baseUrl";
+import { serverMutation } from "@/lib/server"
 
-// export const ApplyJob = async (id, applicantData) => {
-//     const res = await fetch(`${baseUrl}/api/jobs/apply/${id}`, {
-//         method: "PATCH",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(applicantData),
-//     });
-
-//     return res.json();
-// };
+export const BookMark=async(bookmark)=>{
+    const res=await serverMutation(`/api/bookmark`,'POST',bookmark)
+    return res;
+}

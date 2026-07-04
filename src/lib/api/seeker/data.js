@@ -5,3 +5,14 @@ export const AllJobs=async()=>{
     return res;
 }
 
+export const AppliedJobs=async(email)=>{
+    console.log(email,'email applied')
+    const data=await serverFetch(`/api/seeker/applied-jobs/${email}`)
+    console.log(data,'data applied')
+    return data;
+    
+}
+
+export const GetBookmarks = async (userId) => {
+    return await serverFetch(`/api/bookmark/${userId}`);
+};

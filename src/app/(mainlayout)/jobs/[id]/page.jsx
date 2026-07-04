@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import ApplyJobCard from "@/components/ApplyJobCard";
-import { AllJobs } from "@/lib/api/seeker/data";
+import { AllJobs, GetBookmarks } from "@/lib/api/seeker/data";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -10,6 +10,9 @@ import {
     Bookmark, Flag
 } from "lucide-react";
 import Loader from "@/Util/Loading";
+import { authClient } from "@/lib/auth-client";
+import { BookMark } from "@/lib/api/seeker/action";
+import { showToast } from "@/Util/toast";
 
 export default function JobDetailsPage({ params }) {
     const [job, setJob] = useState(null);
@@ -18,21 +21,62 @@ export default function JobDetailsPage({ params }) {
     const [isReported, setIsReported] = useState(false);
     const router = useRouter();
 
+    const { data: session } = authClient.useSession()
+    // console.log(session)
+    const user = session?.user;
+
+    // useEffect(() => {
+    //     async function fetchJobData() {
+    //         try {
+    //             const resolvedParams = await params;
+    //             const jobsData = await AllJobs();
+    //             const foundJob = jobsData?.result?.find((item) => item._id === resolvedParams.id);
+    //             setJob(foundJob);
+    //         } catch (error) {
+    //             console.error("Error fetching job details:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     }
+    //     fetchJobData();
+    // }, [params]);
     useEffect(() => {
         async function fetchJobData() {
             try {
                 const resolvedParams = await params;
+
                 const jobsData = await AllJobs();
-                const foundJob = jobsData?.result?.find((item) => item._id === resolvedParams.id);
+
+                const foundJob = jobsData?.result?.find(
+                    (item) => item._id === resolvedParams.id
+                );
+
                 setJob(foundJob);
+
+                // Bookmark check
+                if (user?.id && foundJob) {
+                    const bookmarkData = await GetBookmarks(user.id);
+
+                    const bookmarked = bookmarkData.result.some(
+                        (item) => item.jobId === foundJob._id
+                    );
+
+                    setIsBookmarked(bookmarked);
+                }
+
             } catch (error) {
-                console.error("Error fetching job details:", error);
+                console.error(error);
             } finally {
                 setLoading(false);
             }
         }
-        fetchJobData();
-    }, [params]);
+
+        if (user) {
+            fetchJobData();
+        }
+    }, [params, user]);
+
+    // console.log(job,'jobs')
 
     if (loading) {
         return <Loader />
@@ -45,6 +89,26 @@ export default function JobDetailsPage({ params }) {
             </div>
         );
     }
+
+    const handleBookmark = async () => {
+        const { _id, ...resdata } = job;
+        const bookmarkData = {
+            ...resdata,
+            jobId: _id,
+            userEmail: user?.email,
+            userId: user?.id
+        }
+        const result = await BookMark(bookmarkData)
+        if (result.success) {
+            setIsBookmarked(result.bookmarked);
+            showToast.success(result.message)
+            router.refresh()
+        } else {
+            showToast.error(result.message)
+        }
+    }
+
+
 
     return (
         <div className="min-h-screen bg-[#ebdcc9]/10 px-4 md:px-8 py-4">
@@ -80,10 +144,10 @@ export default function JobDetailsPage({ params }) {
 
                                 <div className="flex items-center gap-3">
                                     <button
-                                        onClick={() => setIsBookmarked(!isBookmarked)}
+                                        onClick={handleBookmark}
                                         className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-md transition-all duration-300 active:scale-95 ${isBookmarked
-                                                ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
-                                                : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
+                                            ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
+                                            : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
                                             }`}
                                         title={isBookmarked ? "Remove Bookmark" : "Bookmark Job"}
                                     >
@@ -93,8 +157,8 @@ export default function JobDetailsPage({ params }) {
                                     <button
                                         onClick={() => setIsReported(!isReported)}
                                         className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-md transition-all duration-300 active:scale-95 ${isReported
-                                                ? "bg-rose-600 text-white border-rose-600 shadow-rose-900/30"
-                                                : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
+                                            ? "bg-rose-600 text-white border-rose-600 shadow-rose-900/30"
+                                            : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
                                             }`}
                                         title={isReported ? "Job Reported" : "Report Job"}
                                     >
