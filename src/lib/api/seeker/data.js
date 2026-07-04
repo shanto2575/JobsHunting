@@ -16,3 +16,7 @@ export const AppliedJobs=async(email)=>{
 export const GetBookmarks = async (userId) => {
     return await serverFetch(`/api/bookmark/${userId}`);
 };
+
+export const GetReports = async (userId) => {
+    return await serverFetch(`/api/report-jobs/${userId}`);
+};

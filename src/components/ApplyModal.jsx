@@ -18,7 +18,7 @@ export function ApplyModal({ job, user }) {
     const [email, setEmail] = useState(user?.email || "");
     const [cv, setCv] = useState(null);
     const [loading, setLoading] = useState(false);
-    const router=useRouter()
+    const router = useRouter()
 
     // already applied check
     const alreadyApplied = job?.applicants?.some(
@@ -69,8 +69,11 @@ export function ApplyModal({ job, user }) {
             const applicantData = {
                 name,
                 email,
+                userId: user.id,
                 cv: uploadData.cvUrl,
+                cvPublicId: uploadData.cvPublicId,
                 appliedAt: new Date(),
+                status: "Pending",
             };
 
             const applyRes = await fetch(
@@ -106,10 +109,9 @@ export function ApplyModal({ job, user }) {
                 <button
                     disabled={alreadyApplied}
                     className={`w-full flex items-center justify-center gap-2 rounded-2xl py-4 px-4 font-bold transition shadow-md
-                        ${
-                            alreadyApplied
-                                ? "bg-emerald-600 text-white cursor-not-allowed"
-                                : "bg-[#2c221e] text-[#f8f3ea] hover:bg-[#3a2d28]"
+                        ${alreadyApplied
+                            ? "bg-emerald-600 text-white cursor-not-allowed"
+                            : "bg-[#2c221e] text-[#f8f3ea] hover:bg-[#3a2d28]"
                         }`}
                 >
                     {alreadyApplied ? (

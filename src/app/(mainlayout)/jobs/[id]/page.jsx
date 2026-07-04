@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import ApplyJobCard from "@/components/ApplyJobCard";
-import { AllJobs, GetBookmarks } from "@/lib/api/seeker/data";
+import { AllJobs, GetBookmarks, GetReports } from "@/lib/api/seeker/data";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import Loader from "@/Util/Loading";
 import { authClient } from "@/lib/auth-client";
-import { BookMark } from "@/lib/api/seeker/action";
+import { BookMark, Report } from "@/lib/api/seeker/action";
 import { showToast } from "@/Util/toast";
 
 export default function JobDetailsPage({ params }) {
@@ -24,22 +24,8 @@ export default function JobDetailsPage({ params }) {
     const { data: session } = authClient.useSession()
     // console.log(session)
     const user = session?.user;
+    // console.log(user)
 
-    // useEffect(() => {
-    //     async function fetchJobData() {
-    //         try {
-    //             const resolvedParams = await params;
-    //             const jobsData = await AllJobs();
-    //             const foundJob = jobsData?.result?.find((item) => item._id === resolvedParams.id);
-    //             setJob(foundJob);
-    //         } catch (error) {
-    //             console.error("Error fetching job details:", error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     }
-    //     fetchJobData();
-    // }, [params]);
     useEffect(() => {
         async function fetchJobData() {
             try {
@@ -63,6 +49,16 @@ export default function JobDetailsPage({ params }) {
 
                     setIsBookmarked(bookmarked);
                 }
+
+                //report
+
+                const reportData = await GetReports(user.id);
+
+                const reported = reportData.result.some(
+                    (item) => item.jobId === foundJob._id
+                );
+
+                setIsReported(reported);
 
             } catch (error) {
                 console.error(error);
@@ -107,6 +103,33 @@ export default function JobDetailsPage({ params }) {
             showToast.error(result.message)
         }
     }
+
+    const handleReport = async () => {
+        const { _id, ...repodata } = job;
+
+        const reportData = {
+            userId: user?.id,
+            userName: user?.name,
+            userEmail: user?.email,
+            jobId: _id,
+            ...repodata,
+        };
+
+        const result = await Report(reportData);
+
+        // console.log(result);
+
+        if (result.success === true) {
+            setIsReported(true);
+            showToast.success(result.message);
+            router.refresh()
+            
+        } else {
+            setIsReported(true);
+            showToast.error(result.message);
+            router.refresh()
+        }
+    };
 
 
 
@@ -155,7 +178,7 @@ export default function JobDetailsPage({ params }) {
                                     </button>
 
                                     <button
-                                        onClick={() => setIsReported(!isReported)}
+                                        onClick={handleReport}
                                         className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-md transition-all duration-300 active:scale-95 ${isReported
                                             ? "bg-rose-600 text-white border-rose-600 shadow-rose-900/30"
                                             : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
