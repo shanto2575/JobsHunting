@@ -27,3 +27,16 @@ export const DeleteEmployerPostedJobs = async (id) => {
     const result = res.json()
     return result
 }
+
+export async function EmployerAnalytics(email) {
+
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/employer/analytics/${email}`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    return res.json();
+
+}
