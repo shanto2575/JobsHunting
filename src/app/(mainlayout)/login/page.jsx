@@ -9,7 +9,7 @@ import { showToast } from "@/Util/toast";
 import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
-    const route=useRouter()
+    const route = useRouter()
     const themeBg = "#ebdcc9";
     const textDark = "#2c221e";
     const textMuted = "#4a3b35";
@@ -22,21 +22,46 @@ export default function SignInPage() {
         formState: { errors },
     } = useForm();
 
-    const onSubmit = async (e) => {
-        const { data, error } = await authClient.signIn.email({
-            email:e.email,
-            password:e.password,
-            callbackURL: "/"
-        })
-        if(data){
-            showToast.success('LogIn Successful')
-            route.push('/')
-        }
-        if(error){
-            showToast.error(error.message)
-        }
-    };
+    // const onSubmit = async (e) => {
+    //     const { data, error } = await authClient.signIn.email({
+    //         email:e.email,
+    //         password:e.password,
+    //         callbackURL: "/"
+    //     })
+    //     if(data){
+    //         showToast.success('LogIn Successful')
+    //         route.push('/')
+    //     }
+    //     if(error){
+    //         showToast.error(error.message)
+    //     }
+    // };
 
+    const onSubmit = async (e) => {
+
+        const statusRes = await fetch(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/user-status/${e.email}`
+        );
+
+        const statusData = await statusRes.json();
+
+        if (statusData.status === "blocked") {
+            return showToast.error("Your account has been blocked.");
+        }
+
+        const { data, error } = await authClient.signIn.email({
+            email: e.email,
+            password: e.password,
+            callbackURL: "/",
+        });
+
+        if (error) {
+            return showToast.error(error.message);
+        }
+
+        showToast.success("Login Successful");
+        route.push("/");
+    };
     const fadeUp = {
         hidden: { opacity: 0, y: 25 },
         visible: {

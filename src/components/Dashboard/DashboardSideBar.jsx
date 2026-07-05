@@ -20,6 +20,7 @@ import {
     Menu,
     X,
 } from "lucide-react";
+import { ImProfile } from "react-icons/im";
 
 export default function DashboardSideBar() {
     const router = useRouter();
@@ -93,6 +94,11 @@ export default function DashboardSideBar() {
         ],
 
         admin: [
+            {
+                icon: ImProfile,
+                label: "Profile",
+                link: "/dashboard/admin/profile",
+            },
             {
                 icon: Users,
                 label: "Manage Users",

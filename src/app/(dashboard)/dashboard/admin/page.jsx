@@ -1,9 +1,8 @@
 import React from 'react'
+import ProfilePage from './profile/page'
 
 const AdminMainPage = () => {
-    return (
-        <div>AdminMainPage</div>
-    )
+    return <ProfilePage/>
 }
 
 export default AdminMainPage
