@@ -33,19 +33,12 @@ export default function ApplicantsTable({ applicants, jobId }) {
                 }),
             }
         );
-
         const result = await res.json();
-
         if (result.success) {
-
             showToast.success(result.message);
-
             router.refresh();
-
         } else {
-
             showToast.error(result.message);
-
         }
     };
 
@@ -71,6 +64,14 @@ export default function ApplicantsTable({ applicants, jobId }) {
             select: "bg-red-50 border-red-300 text-red-700",
         },
     };
+
+    // Helper function - place outside your component (or in a utils file)
+    function getDownloadUrl(cvUrl, filename = "CV") {
+        if (!cvUrl) return "#";
+        const safeName = filename.replace(/[^a-zA-Z0-9_-]/g, "_");
+        return cvUrl.replace("/upload/", `/upload/fl_attachment:${safeName}/`);
+    }
+
     return (
         <div className="overflow-hidden rounded-2xl border border-[#dfcbaf] bg-white/40 shadow-sm">
             <div className="overflow-x-auto">
@@ -155,7 +156,8 @@ export default function ApplicantsTable({ applicants, jobId }) {
 
                                             {/* View PDF */}
                                             <a
-                                                href={`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(applicant.cv + ".pdf")}`}
+                                                // href={`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(applicant.cv)}`}
+                                                href={applicant.cv}
                                                 className="px-3 py-2 bg-green-700 text-white rounded-lg"
                                                 target="_blank"
                                             >
@@ -164,8 +166,12 @@ export default function ApplicantsTable({ applicants, jobId }) {
 
                                             {/* Download */}
                                             <a
-                                                href={`${applicant.cv}?fl_attachment=true`}
+                                                // href={`${applicant.cv}?fl_attachment=true`}
+
+                                                href={getDownloadUrl(applicant.cv, `${applicant.name}_CV`)}
+
                                                 className="px-3 py-2 bg-gray-700 text-white rounded-lg"
+
                                             >
                                                 Download
                                             </a>

@@ -30,7 +30,7 @@ export default function PostsJob() {
                 userEmail: user.email,
                 userId: user?._id,
                 applicants: [],
-                status: "active",
+                status: "pending",
                 createdAt: new Date()
             }
             const result = await AddJobs(Jobs)
