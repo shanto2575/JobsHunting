@@ -30,153 +30,155 @@ export default function UsersTable({ users }) {
         }
     };
 
-        const handleDelete = async (id) => {
-            const result = await DeleteUser(id)
-            if (result.success) {
-                showToast.success('Deleted Successful')
-                router.refresh()
-            } else {
-                showToast.error(error.message)
-            }
+    const handleDelete = async (id) => {
+        const result = await DeleteUser(id)
+        if (result.success) {
+            showToast.success('Deleted Successful')
+            router.refresh()
+        } else {
+            showToast.error(error.message)
         }
-
-        return (
-            <div className="overflow-hidden rounded-2xl border border-[#dfcbaf] bg-white/50 shadow-sm">
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="bg-[#2c221e] text-[#ebdcc9]">
-                                <th className="px-6 py-4 text-left">
-                                    User
-                                </th>
-                                <th className="px-6 py-4 text-left">
-                                    Email
-                                </th>
-                                <th className="px-6 py-4 text-center">
-                                    Role
-                                </th>
-                                <th className="px-6 py-4 text-center">
-                                    Plan
-                                </th>
-                                <th className="px-6 py-4 text-center">
-                                    Status
-                                </th>
-                                <th className="px-6 py-4 text-center">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {users.map((user) => {
-                                const status = user.status || "active";
-                                return (
-                                    <tr
-                                        key={user._id}
-                                        className="border-b hover:bg-[#faf6f0]/50"
-                                    >
-
-                                        {/* User */}
-
-                                        <td className="px-6 py-5">
-
-                                            <div>
-
-                                                <h2 className="font-semibold text-[#2c221e]">
-                                                    {user.name}
-                                                </h2>
-                                                <p className="text-xs text-gray-500">
-                                                    Joined{" "}
-                                                    {new Date(
-                                                        user.createdAt
-                                                    ).toLocaleDateString()}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        {/* Email */}
-                                        <td className="px-6 py-5">
-                                            <div className="flex items-center gap-2">
-                                                <Mail size={15} />
-                                                {user.email}
-                                            </div>
-                                        </td>
-                                        {/* Role */}
-                                        <td className="text-center">
-                                            <span
-                                                className={`px-3 py-1 rounded-full text-xs font-semibold
-                                            ${user.role === "admin"
-                                                        ? "bg-red-100 text-red-700"
-                                                        : user.role === "employer"
-                                                            ? "bg-blue-100 text-blue-700"
-                                                            : "bg-green-100 text-green-700"
-                                                    }`}
-                                            >
-                                                {user.role}
-                                            </span>
-                                        </td>
-                                        {/* Plan */}
-                                        <td className="text-center">
-                                            <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs">
-                                                <Crown size={14} />
-                                                {user.plan}
-                                            </span>
-                                        </td>
-                                        {/* Status */}
-                                        <td className="text-center">
-                                            <span
-                                                className={`px-3 py-1 rounded-full text-xs font-semibold
-                                            ${status === "blocked"
-                                                        ? "bg-red-100 text-red-700"
-                                                        : "bg-green-100 text-green-700"
-                                                    }`}
-                                            >
-                                                {status}
-                                            </span>
-
-                                        </td>
-
-                                        {/* Actions */}
-
-                                        <td>
-                                            <div className="flex justify-center gap-2">
-
-                                                {user.role === "admin" ? (
-                                                    <span className="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 text-sm font-semibold">
-                                                        Protected
-                                                    </span>
-                                                ) : (
-                                                    <>
-                                                        <button
-                                                            onClick={() =>
-                                                                handleBlock(user._id, status)
-                                                            }
-                                                            className={`px-3 py-2 rounded-lg text-white text-sm flex items-center gap-2
-                                                    ${status === "blocked"
-                                                                    ? "bg-green-600 hover:bg-green-700"
-                                                                    : "bg-yellow-500 hover:bg-yellow-600"
-                                                                }`}
-                                                        >
-                                                            <Ban size={16} />
-                                                            {status === "blocked"
-                                                                ? "Unblock"
-                                                                : "Block"}
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleDelete(user._id)}
-                                                            className="px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm flex items-center gap-2"
-                                                        >
-                                                            <Trash2 size={16} />
-                                                            Delete
-                                                        </button>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        );
     }
+
+    return (
+        <div className="overflow-hidden rounded-3xl border border-[#dfcbaf]/60 bg-white/70 backdrop-blur-md shadow-[0_12px_40px_-15px_rgba(44,34,30,0.05)]">
+            <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                    <thead>
+                        <tr className="bg-[#2c221e] text-[#ebdcc9] uppercase tracking-wider text-xs font-bold">
+                            <th className="px-6 py-4.5 text-left">
+                                User
+                            </th>
+                            <th className="px-6 py-4.5 text-left">
+                                Email
+                            </th>
+                            <th className="px-6 py-4.5 text-center">
+                                Role
+                            </th>
+                            <th className="px-6 py-4.5 text-center">
+                                Plan
+                            </th>
+                            <th className="px-6 py-4.5 text-center">
+                                Status
+                            </th>
+                            <th className="px-6 py-4.5 text-center">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#dfcbaf]/30">
+                        {users.map((user) => {
+                            const status = user.status || "active";
+                            return (
+                                <tr
+                                    key={user._id}
+                                    className="hover:bg-[#ebdcc9]/20 transition-all duration-200"
+                                >
+
+                                    {/* User */}
+
+                                    <td className="px-6 py-5">
+                                        <div>
+                                            <h2 className="font-bold text-[#2c221e] text-sm tracking-tight">
+                                                {user.name}
+                                            </h2>
+                                            <p className="text-xs text-[#2c221e]/60 font-medium mt-0.5">
+                                                Joined{" "}
+                                                {new Date(
+                                                    user.createdAt
+                                                ).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    </td>
+
+                                    {/* Email */}
+
+                                    <td className="px-6 py-5 text-sm font-medium text-[#2c221e]/80">
+                                        <div className="flex items-center gap-2 text-[#2c221e]/70">
+                                            <Mail size={14} className="text-[#2c221e]/50" />
+                                            {user.email}
+                                        </div>
+                                    </td>
+
+                                    {/* Role */}
+
+                                    <td className="px-6 py-5 text-center">
+                                        <span
+                                            className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border shadow-sm min-w-[85px]
+                                            ${user.role === "admin"
+                                                    ? "bg-rose-50 text-rose-700 border-rose-200"
+                                                    : user.role === "employer"
+                                                        ? "bg-blue-50 text-blue-700 border-blue-200"
+                                                        : "bg-emerald-50 text-emerald-700 border-emerald-200"
+                                            }`}
+                                        >
+                                            {user.role}
+                                        </span>
+                                    </td>
+
+                                    {/* Plan */}
+
+                                    <td className="px-6 py-5 text-center">
+                                        <span className="inline-flex items-center gap-1.5 bg-[#ebdcc9]/40 text-[#2c221e] px-3 py-1 rounded-full text-xs font-bold border border-[#dfcbaf]/30 shadow-sm">
+                                            <Crown size={13} className="text-amber-600 fill-amber-600/10" />
+                                            {user.plan}
+                                        </span>
+                                    </td>
+
+                                    {/* Status */}
+
+                                    <td className="px-6 py-5 text-center">
+                                        <span
+                                            className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border shadow-sm min-w-[85px]
+                                            ${status === "blocked"
+                                                    ? "bg-rose-100 text-rose-700 border-rose-300"
+                                                    : "bg-emerald-100 text-emerald-700 border-emerald-300"
+                                            }`}
+                                        >
+                                            {status}
+                                        </span>
+                                    </td>
+
+                                    {/* Actions */}
+
+                                    <td className="px-6 py-5">
+                                        <div className="flex justify-center items-center gap-2">
+                                            {user.role === "admin" ? (
+                                                <span className="px-4 py-1.5 rounded-xl bg-[#2c221e]/5 border border-[#dfcbaf]/40 text-[#2c221e]/60 text-xs font-bold tracking-wide uppercase">
+                                                    Protected
+                                                </span>
+                                            ) : (
+                                                <>
+                                                    <button
+                                                        onClick={() =>
+                                                            handleBlock(user._id, status)
+                                                        }
+                                                        className={`px-3 py-2 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border shadow-sm transition-all duration-200
+                                                        ${status === "blocked"
+                                                                ? "bg-white border-emerald-200 hover:bg-emerald-50 text-emerald-600"
+                                                                : "bg-white border-amber-200 hover:bg-amber-50 text-amber-600"
+                                                        }`}
+                                                    >
+                                                        <Ban size={14} />
+                                                        {status === "blocked" ? "Unblock" : "Block"}
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDelete(user._id)}
+                                                        className="px-3 py-2 rounded-xl bg-white border border-rose-200 hover:bg-rose-50 text-rose-600 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all duration-200"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                        Delete
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
