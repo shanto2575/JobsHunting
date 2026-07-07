@@ -101,6 +101,11 @@ export default function DashboardSideBar() {
             },
             {
                 icon: Users,
+                label: "Admin Analytics ",
+                link: "/dashboard/admin/Analytics ",
+            },
+            {
+                icon: Users,
                 label: "Manage Users",
                 link: "/dashboard/admin/manage-users",
             },

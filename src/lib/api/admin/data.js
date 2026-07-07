@@ -14,3 +14,16 @@ export const AllJobs=async()=>{
     const res=await serverFetch(`/api/manage-jobs`)
     return res;
 }
+
+export const AdminAnalytics = async () => {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/analytics`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    const data = await res.json();
+
+    return data.analytics;
+};

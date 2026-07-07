@@ -15,7 +15,7 @@ import { DeletePostedJobs } from "./DeletePostedJobs";
 
 export default function PostedJobsCard({ job }) {
     return (
-        <div className="group relative overflow-hidden rounded-3xl border border-[#dfcbaf] bg-white/30 backdrop-blur-xl shadow-[0_20px_40px_-15px_rgba(44,34,30,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#2c221e]/40 hover:shadow-[0_25px_60px_-15px_rgba(44,34,30,0.12)]">
+        <div className="group relative overflow-hidden rounded-3xl border border-[#dfcbaf] bg-white/40 backdrop-blur-xl shadow-[0_20px_40px_-15px_rgba(44,34,30,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#2c221e]/40 hover:shadow-[0_25px_60px_-15px_rgba(44,34,30,0.12)]">
 
             <div className="relative h-52 w-full overflow-hidden bg-[#2c221e]/5">
                 <Image
