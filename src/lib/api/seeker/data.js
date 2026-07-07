@@ -1,9 +1,13 @@
 import { serverFetch } from "@/lib/server"
 
-export const AllJobs=async()=>{
-    const res=await serverFetch(`/api/alljobs`)
+export const AllJobs = async (searchParams) => {
+
+    const query = new URLSearchParams(searchParams).toString();
+
+    const res = await serverFetch(`/api/alljobs?${query}`);
+
     return res;
-}
+};
 
 export const AppliedJobs=async(email)=>{
     console.log(email,'email applied')

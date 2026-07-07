@@ -3,32 +3,54 @@
 import { useState } from "react";
 import { Search, SlidersHorizontal, MapPin, Briefcase, DollarSign, Layers } from "lucide-react";
 import JobsCard from "@/components/JobsCard";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { FcBriefcase } from "react-icons/fc";
 
-export default function AllJobsPage({job}) {
-    // 🎯 ১. সবকটি ফিল্টারের জন্য স্টেট (State)
+export default function AllJobsPage({ job, pagination }) {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("");
     const [location, setLocation] = useState("");
     const [salary, setSalary] = useState("");
     const [jobType, setJobType] = useState("");
-    const [workplace, setWorkplace] = useState("");
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
 
-    // 🎯 ২. ফিল্টার চেঞ্জ হলে বা সার্চ বাটনে ক্লিক করলে সার্ভারে রিকোয়েস্ট পাঠানোর ফাংশন
     const handleApplyFilters = () => {
-        // এই অবজেক্টটি তুমি তোমার এপিআই কল বা router.push-এ কুয়েরি হিসেবে ব্যবহার করবে
-        const filterQueryParams = {
-            search,
-            category,
-            location,
-            salary,
-            jobType,
-            workplace
-        };
-        // console.log("Sending to Server:", filterQueryParams);
-        
-        // উদাহরণ (Next.js URL Query Update):
-        // router.push(`/jobs?search=${search}&category=${category}...`)
+        const params = new URLSearchParams(searchParams.toString());
+
+        if (search) {
+            params.set("search", search);
+        } else {
+            params.delete("search");
+        }
+
+        if (category) {
+            params.set("category", category);
+        } else {
+            params.delete("category");
+        }
+
+        if (location) {
+            params.set("location", location);
+        } else {
+            params.delete("location");
+        }
+
+        if (salary) {
+            params.set("salary", salary);
+        } else {
+            params.delete("salary");
+        }
+
+        if (jobType) {
+            params.set("type", jobType);
+        } else {
+            params.delete("type");
+        }
+
+        router.push(`${pathname}?${params.toString()}`);
     };
 
     const handleReset = () => {
@@ -37,7 +59,18 @@ export default function AllJobsPage({job}) {
         setLocation("");
         setSalary("");
         setJobType("");
-        setWorkplace("");
+
+        router.push(pathname);
+    };
+    const totalPages = pagination.totalPages;
+    const currentPage = pagination.currentPage;
+
+    const changePage = (page) => {
+        const params = new URLSearchParams(searchParams);
+
+        params.set("page", page);
+
+        router.push(`${pathname}?${params.toString()}`);
     };
 
     return (
@@ -59,7 +92,7 @@ export default function AllJobsPage({job}) {
                         />
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4a3b35]/60" size={18} />
                     </div>
-                    <button 
+                    <button
                         onClick={handleApplyFilters}
                         className="h-14 px-6 rounded-2xl bg-[#2c221e] text-[#ebdcc9] text-xs font-black uppercase tracking-wider hover:opacity-90 transition-all"
                     >
@@ -68,10 +101,8 @@ export default function AllJobsPage({job}) {
                 </div>
             </div>
 
-            {/* 🎯 MAIN CONTENT LAYOUT */}
             <div className="flex flex-col lg:flex-row gap-4 items-start">
-                
-                {/* 🧭 LEFT SIDEBAR: Filter Fields */}
+
                 <aside className="w-full lg:w-80 shrink-0 bg-white/30 backdrop-blur-md border border-[#dfcbaf]/80 rounded-[2rem] p-6 shadow-sm sticky top-6">
                     <div className="flex items-center justify-between border-b border-[#dfcbaf]/40 pb-4 mb-5">
                         <div className="flex items-center gap-2">
@@ -84,29 +115,44 @@ export default function AllJobsPage({job}) {
                     <div className="space-y-5">
                         {/* 1. Category Field */}
                         <div>
-                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><Layers size={12}/> Category</label>
+                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><Layers size={12} /> Category</label>
                             <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-[#dfcbaf]/60 bg-white text-xs font-bold text-[#2c221e] outline-none focus:border-[#2c221e] cursor-pointer">
                                 <option value="">All Categories</option>
-                                <option value="tech">Technology</option>
-                                <option value="design">Design</option>
-                                <option value="marketing">Marketing</option>
-                                <option value="finance">Finance</option>
+                                <option value="Frontend Development">Frontend Development</option>
+                                <option value="Backend Development">Backend Development</option>
+                                <option value="Full Stack Development">Full Stack Development</option>
+                                <option value="Design">Design</option>
+                                <option value="DevOps">DevOps</option>
+                                <option value="Python">Python</option>
+                                <option value="Artificial Intelligence">Artificial Intelligence</option>
+                                <option value="Mobile Development">Mobile Development</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Cyber Security">Cyber Security</option>
                             </select>
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><MapPin size={12}/> Location</label>
+                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><MapPin size={12} /> Location</label>
                             <select value={location} onChange={(e) => setLocation(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-[#dfcbaf]/60 bg-white text-xs font-bold text-[#2c221e] outline-none focus:border-[#2c221e] cursor-pointer">
                                 <option value="">All Locations</option>
-                                <option value="dhaka">Dhaka</option>
-                                <option value="chittagong">Chittagong</option>
-                                <option value="sylhet">Sylhet</option>
+                                <option value="Dhaka">Dhaka</option>
+                                <option value="Chattogram">Chattogram</option>
+                                <option value="Sylhet">Sylhet</option>
+                                <option value="Rajshahi">Rajshahi</option>
+                                <option value="Khulna">Khulna</option>
+                                <option value="Barishal">Barishal</option>
+                                <option value="Rangpur">Rangpur</option>
+                                <option value="Mymensingh">Mymensingh</option>
+                                <option value="Gazipur">Gazipur</option>
+                                <option value="Narayanganj">Narayanganj</option>
+                                <option value="Cumilla">Cumilla</option>
+                                <option value="Cox's Bazar">Cox's Bazar</option>
                             </select>
                         </div>
 
                         {/* 3. Salary Range Field */}
                         <div>
-                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><DollarSign size={12}/> Salary Range</label>
+                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><DollarSign size={12} /> Salary Range</label>
                             <select value={salary} onChange={(e) => setSalary(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-[#dfcbaf]/60 bg-white text-xs font-bold text-[#2c221e] outline-none focus:border-[#2c221e] cursor-pointer">
                                 <option value="">Any Salary</option>
                                 <option value="0-50000">Under $50,000</option>
@@ -117,45 +163,27 @@ export default function AllJobsPage({job}) {
                         </div>
 
                         <div>
-                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><Briefcase size={12}/> Job Type</label>
+                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><Briefcase size={12} /> Job Type</label>
                             <select value={jobType} onChange={(e) => setJobType(e.target.value)} className="w-full h-11 px-3 rounded-xl border border-[#dfcbaf]/60 bg-white text-xs font-bold text-[#2c221e] outline-none focus:border-[#2c221e] cursor-pointer">
                                 <option value="">All Types</option>
-                                <option value="full-time">Full-time</option>
-                                <option value="part-time">Part-time</option>
-                                <option value="contract">Contract</option>
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Remote">Remote</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Hybrid">Hybrid</option>
                             </select>
-                        </div>
-
-                        <div>
-                            <label className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-[#4a3b35]/70 mb-2"><MapPin size={12}/> Workplace</label>
-                            <div className="grid grid-cols-3 gap-1.5">
-                                {["", "Remote", "Onsite"].map((type) => (
-                                    <button
-                                        key={type}
-                                        type="button"
-                                        onClick={() => setWorkplace(type)}
-                                        className={`h-9 rounded-xl text-[11px] font-bold transition-all ${
-                                            workplace === type 
-                                                ? "bg-[#2c221e] text-[#ebdcc9]" 
-                                                : "bg-[#2c221e]/5 text-[#4a3b35] hover:bg-[#2c221e]/10"
-                                        }`}
-                                    >
-                                        {type === "" ? "All" : type}
-                                    </button>
-                                ))}
-                            </div>
                         </div>
                     </div>
 
                     {/* Reset Buttons */}
                     <div className="grid grid-cols-2 gap-3 mt-6">
-                        <button 
+                        <button
                             onClick={handleReset}
                             className="h-11 rounded-xl border border-[#2c221e]/30 text-xs font-bold uppercase tracking-wider text-[#4a3b35] transition-all hover:bg-[#2c221e]/5"
                         >
                             Reset
                         </button>
-                        <button 
+                        <button
                             onClick={handleApplyFilters}
                             className="h-11 rounded-xl bg-[#2c221e] text-xs font-black uppercase tracking-wider text-[#ebdcc9] transition-all hover:opacity-90"
                         >
@@ -165,10 +193,63 @@ export default function AllJobsPage({job}) {
                 </aside>
 
                 <main className="w-full flex-1">
-                    <div className="grid grid-cols-1 xl:grid-cols-2  gap-6 w-full">
-                        {job?.map((job) => (
-                            <JobsCard key={job._id} job={job} />
-                        ))}
+                    {job && job.length > 0 ? (
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full animate-in fade-in duration-500">
+                            {job.map((item) => (
+                                <JobsCard key={item._id} job={item} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="w-full h-[400px] rounded-3xl border border-[#dfcbaf]/50 bg-white/70 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center shadow-[0_12px_40px_-15px_rgba(44,34,30,0.04)] animate-in fade-in zoom-in-95 duration-300">
+                            <div className="w-16 h-16 rounded-2xl bg-[#ebdcc9]/40 border border-[#dfcbaf]/40 flex items-center justify-center mb-5 shadow-sm text-[#2c221e]/70">
+                            <FcBriefcase size={28} />
+                            </div>
+
+                            <h3 className="text-2xl font-bold text-[#2c221e] tracking-tight">
+                                No Active Jobs Found
+                            </h3>
+
+                            <p className="text-xs text-[#2c221e]/60 font-medium mt-2 max-w-xs leading-relaxed">
+                                There are currently no listings available. Please check back later or modify your search filters.
+                            </p>
+                        </div>
+                    )}
+                    <div className="flex justify-center items-center mt-12 gap-3 selection:bg-transparent">
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => changePage(currentPage - 1)}
+                            className="px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border border-[#dfcbaf]/60 bg-white/80 text-[#2c221e] backdrop-blur-md transition-all duration-300 shadow-[0_4px_12px_rgba(44,34,30,0.03)] hover:bg-[#2c221e] hover:text-white hover:border-[#2c221e] hover:shadow-[0_8px_20px_-6px_rgba(44,34,30,0.2)] disabled:opacity-35 disabled:hover:bg-white/80 disabled:hover:text-[#2c221e] disabled:hover:border-[#dfcbaf]/60 disabled:hover:shadow-none disabled:cursor-not-allowed"
+                        >
+                            Previous
+                        </button>
+
+                        <div className="flex gap-2 items-center">
+                            {[...Array(totalPages)].map((_, index) => {
+                                const pageNum = index + 1;
+                                const isActive = currentPage === pageNum;
+
+                                return (
+                                    <button
+                                        key={index}
+                                        onClick={() => changePage(pageNum)}
+                                        className={`w-10 h-10 text-xs font-bold rounded-xl backdrop-blur-md transition-all duration-300 flex items-center justify-center border
+                        ${isActive
+                                                ? "bg-[#2c221e] border-[#2c221e] text-white shadow-[0_8px_20px_-4px_rgba(44,34,30,0.3)] scale-105"
+                                                : "bg-white/70 border-[#dfcbaf]/40 text-[#2c221e]/70 hover:bg-[#ebdcc9]/30 hover:border-[#dfcbaf] hover:text-[#2c221e] shadow-[0_4px_12px_rgba(44,34,30,0.02)]"
+                                            }`}
+                                    >
+                                        {pageNum}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                        <button
+                            disabled={currentPage === totalPages}
+                            onClick={() => changePage(currentPage + 1)}
+                            className="px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border border-[#dfcbaf]/60 bg-white/80 text-[#2c221e] backdrop-blur-md transition-all duration-300 shadow-[0_4px_12px_rgba(44,34,30,0.03)] hover:bg-[#2c221e] hover:text-white hover:border-[#2c221e] hover:shadow-[0_8px_20px_-6px_rgba(44,34,30,0.2)] disabled:opacity-35 disabled:hover:bg-white/80 disabled:hover:text-[#2c221e] disabled:hover:border-[#dfcbaf]/60 disabled:hover:shadow-none disabled:cursor-not-allowed"
+                        >
+                            Next
+                        </button>
                     </div>
                 </main>
 

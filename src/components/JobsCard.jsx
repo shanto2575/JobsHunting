@@ -41,7 +41,7 @@ export default function JobsCard({ job }) {
                     <div className="absolute top-4 inset-x-4 flex items-center justify-between z-10">
                         <span
                             className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider backdrop-blur-md border shadow-sm flex items-center gap-1.5 ${
-                                job.status === "active"
+                                job.status === "approved"
                                     ? "bg-emerald-500/20 text-emerald-700 border-emerald-500/30"
                                     : "bg-rose-500/20 text-rose-700 border-rose-500/30"
                             }`}

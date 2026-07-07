@@ -18,11 +18,6 @@ const Applicants = async () => {
 
     return (
         <div className="p-6">
-
-            {/* Header */}
-
-            {/* Header */}
-
             <div className="mb-6 rounded-3xl bg-gradient-to-r from-[#2c221e] via-[#43342d] to-[#5c483c] p-6 text-white shadow-lg">
 
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
