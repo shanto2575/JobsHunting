@@ -93,7 +93,7 @@ export function ApplyModal({ job, user }) {
                 showToast.success("Application Submitted Successfully");
                 router.refresh()
             } else {
-                showToast.error("Application Failed");
+                showToast.error("Free users can apply only 5 jobs. Upgrade to Pro.");
             }
         } catch (error) {
             console.log(error);

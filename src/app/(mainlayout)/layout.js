@@ -16,7 +16,7 @@ const MainLayout = ({ children }) => {
             <div className="relative z-20 mt-3 bg-[#ebdcc9]/90 backdrop-blur-md">
                 <Navbar />
             </div>
-            <main className="relative z-10 flex-grow w-full   py-10">
+            <main className="relative z-10 flex-grow w-full   ">
                 {children}
             </main>
             <div className="relative z-20 ">

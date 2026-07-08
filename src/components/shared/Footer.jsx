@@ -69,7 +69,8 @@ export default function Footer() {
                                 { text: "Browse Jobs", href: "/jobs" },
                                 { text: "Build Profile", href: "/dashboard/seeker/profile" },
                                 { text: "Application Tracking", href: "/dashboard/seeker/applications" },
-                                { text: "Bookmarked Jobs", href: "/dashboard/seeker/bookmarks" }
+                                { text: "Bookmarked Jobs", href: "/dashboard/seeker/bookmarks" },
+                                { text: "Demo_User", href: "/DemoUser" }
                             ].map((link, i) => (
                                 <li key={i}>
                                     <Link href={link.href} className="hover:text-[#2c221e] transition-colors duration-200 block">

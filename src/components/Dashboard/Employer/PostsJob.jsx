@@ -41,7 +41,7 @@ export default function PostsJob() {
                     router.replace('/dashboard/employer/posted-jobs')
                 }, 1000)
             } else {
-                showToast.error("Failed To Create Job");
+                showToast.error("Free users can post only 3 jobs. Upgrade to Pro for unlimited job posting.");
             }
         } catch (error) {
             console.log(error)

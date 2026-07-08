@@ -5,7 +5,7 @@ import DashboardOverviewCard from '@/components/Dashboard/seeker/SeekerProfile'
 const EmployerMainPage = () => {
     return (
         <div>
-            <DashboardHeader title="Profile" subtitle="Manage your employer profile" />
+            <DashboardHeader title="Profile" subtitle="Manage your  profile" />
             <DashboardOverviewCard/>
         </div>
     )

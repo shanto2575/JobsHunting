@@ -9,6 +9,11 @@ export const AllJobs = async (searchParams) => {
     return res;
 };
 
+export const GetJobById = async (id) => {
+    return await serverFetch(`/api/jobs/${id}`);
+};
+
+
 export const AppliedJobs=async(email)=>{
     console.log(email,'email applied')
     const data=await serverFetch(`/api/seeker/applied-jobs/${email}`)
