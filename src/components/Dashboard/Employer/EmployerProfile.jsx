@@ -21,7 +21,7 @@ export default function DashboardOverviewCard() {
 
     return (
         <div className="w-full rounded-3xl border border-[#dfcbaf]/50 bg-white/60 backdrop-blur-xl p-6 md:p-8 shadow-[0_24px_50px_-15px_rgba(44,34,30,0.06)] transition-all duration-300 hover:shadow-[0_30px_60px_-15px_rgba(44,34,30,0.1)]">
-            
+
             {/* Top Section: Profile Info & Action */}
             <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pb-6 border-b border-[#dfcbaf]/30">
                 <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center w-full">
@@ -61,11 +61,10 @@ export default function DashboardOverviewCard() {
                             </span>
 
                             {/* Plan Badge (Dynamic Color) */}
-                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${
-                                isPro 
-                                    ? "bg-gradient-to-r from-amber-500 to-yellow-600 text-white" 
-                                    : "bg-[#ebdcc9] text-[#2c221e]"
-                            }`}>
+                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${isPro
+                                ? "bg-gradient-to-r from-amber-500 to-yellow-600 text-white"
+                                : "bg-[#ebdcc9] text-[#2c221e]"
+                                }`}>
                                 <Crown size={13} />
                                 {user?.plan || "Free"} Plan
                             </span>
@@ -127,19 +126,22 @@ export default function DashboardOverviewCard() {
                             <p className="text-sm text-[#ebdcc9]/80 max-w-xl leading-relaxed font-medium">
                                 Upgrade to <span className="text-amber-400 font-bold">Pro Membership</span> to unlock premium job visibility, advanced recruitment analytics, unlimited job postings, and standalone highlighted listings.
                             </p>
-                            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-[#2c221e] font-black text-xs uppercase tracking-wider shadow transition-all duration-200 hover:scale-[1.02]">
-                                <Crown size={14} />
-                                Upgrade to Pro
-                            </button>
+                            <form action={'/api/checkout_sessions'} method="POST">
+                                <button
+                                    type="submit"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-[#2c221e] font-black text-xs uppercase tracking-wider shadow transition-all duration-200 hover:scale-[1.02]">
+                                    <Crown size={14} />
+                                    Upgrade to Pro
+                                </button>
+                            </form>
                         </div>
                     </div>
                 ) : (
-                    /* Pro Plan (Golden Premium UI) */
                     <div className="p-6 bg-gradient-to-br from-[#2c221e] via-[#3d302b] to-[#2c221e] border-2 border-amber-500/30 text-white relative">
                         {/* Golden Glowing Accents */}
                         <div className="absolute -right-6 -top-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
                         <div className="absolute -left-6 -bottom-6 w-32 h-32 bg-yellow-600/10 rounded-full blur-2xl pointer-events-none" />
-                        
+
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative">
                             <div className="space-y-2">
                                 <div className="flex items-center gap-2 text-amber-400">
