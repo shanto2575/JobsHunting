@@ -19,6 +19,11 @@ export const AllJobs = async (searchParams) => {
     return res;
 };
 
+export const featuredCompanies=async()=>{
+    const res=await serverFetch('/api/featured-companies')
+    return res;
+}
+
 export const GetJobById = async (id) => {
     return await serverFetch(`/api/jobs/${id}`);
 };
