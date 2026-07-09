@@ -12,10 +12,16 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/Util/toast";
+import InterviewModal from "./InterviewModal";
+import { useState } from "react";
+import HireModal from "./HireModal";
 
 export default function ApplicantsTable({ applicants, jobId }) {
+    const [openInterview, setOpenInterview] = useState(false);
+    const [selectedApplicant, setSelectedApplicant] = useState(null);
+    const [openHire, setOpenHire] = useState(false);
     const router = useRouter();
-    // console.log(applicants);
+    // console.log(applicants,'app');
 
     const handleStatus = async (userId, status) => {
 
@@ -65,7 +71,6 @@ export default function ApplicantsTable({ applicants, jobId }) {
         },
     };
 
-    // Helper function - place outside your component (or in a utils file)
     function getDownloadUrl(cvUrl, filename = "CV") {
         if (!cvUrl) return "#";
         const safeName = filename.replace(/[^a-zA-Z0-9_-]/g, "_");
@@ -184,33 +189,28 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                         <div className="flex justify-center gap-2">
 
                                             <select
-                                                defaultValue={applicant.status || "Pending"}
-                                                onChange={(e) =>
-                                                    handleStatus(applicant.userId, e.target.value)
-                                                }
+                                                value={applicant.status || "Pending"}
+                                                onChange={(e) => {
+                                                    const status = e.target.value;
+
+                                                    if (status === "Interview") {
+                                                        setSelectedApplicant(applicant);
+                                                        setOpenInterview(true);
+                                                    } else if (status === "Hired") {
+                                                        setSelectedApplicant(applicant);
+                                                        setOpenHire(true);
+                                                    } else {
+                                                        handleStatus(applicant.userId, status);
+                                                    }
+                                                }}
                                                 className={`rounded-lg px-3 py-2 text-sm font-medium border outline-none cursor-pointer ${statusStyles[applicant.status || "Pending"]?.select
                                                     }`}
                                             >
-                                                <option value="Pending">
-                                                    Pending
-                                                </option>
-
-                                                <option value="Shortlisted">
-                                                    Shortlisted
-                                                </option>
-
-                                                <option value="Interview">
-                                                    Interview
-                                                </option>
-
-                                                <option value="Hired">
-                                                    Hired
-                                                </option>
-
-                                                <option value="Rejected">
-                                                    Rejected
-                                                </option>
-
+                                                <option value="Pending">Pending</option>
+                                                <option value="Shortlisted">Shortlisted</option>
+                                                <option value="Interview">Interview</option>
+                                                <option value="Hired">Hired</option>
+                                                <option value="Rejected">Rejected</option>
                                             </select>
 
                                         </div>
@@ -221,6 +221,18 @@ export default function ApplicantsTable({ applicants, jobId }) {
                     </tbody>
                 </table>
             </div>
+            <InterviewModal
+                open={openInterview}
+                setOpen={setOpenInterview}
+                applicant={selectedApplicant}
+                jobId={jobId}
+            />
+            <HireModal
+                open={openHire}
+                setOpen={setOpenHire}
+                applicant={selectedApplicant}
+                jobId={jobId}
+            />
         </div>
     );
 }

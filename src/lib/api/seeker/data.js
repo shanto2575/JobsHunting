@@ -29,3 +29,7 @@ export const GetBookmarks = async (userId) => {
 export const GetReports = async (userId) => {
     return await serverFetch(`/api/report-jobs/${userId}`);
 };
+
+export const GetNotifications = async (userId) => {
+    return await serverFetch(`/api/notifications/${userId}`);
+};
