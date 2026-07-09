@@ -12,8 +12,9 @@ export default function Navbar() {
     const user = session?.user;
 
     const navLinks = [
+        { name: "Home", href: "/" },
         { name: "Browse Jobs", href: "/jobs" },
-        { name: "Companies", href: "/companies" },
+        // { name: "Companies", href: "/companies" },
     ];
 
     const getDashboardLink = () => {
@@ -40,11 +41,14 @@ export default function Navbar() {
                 <div className="px-6 lg:px-8">
                     <div className="flex items-center justify-between h-14">
 
-                        <Link href="/" className="text-xl font-bold tracking-tight text-white hover:opacity-90 transition group">
-                            Jobs<span className="transition-colors duration-300" style={{ color: '#ebdcc9' }}>Hunting</span>
-                            <span className="inline-block ml-1 group-hover:animate-bounce text-sm">✨</span>
+                        <Link href="/" className="text-2xl font-black tracking-tight uppercase transition duration-300 group flex items-center gap-1">
+                            <span className="bg-gradient-to-r from-amber-400 via-rose-500 to-rose-700 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                                Jobs<span className="font-serif italic font-normal lowercase tracking-normal">hunting</span>
+                            </span>
+                            <span className="inline-block text-rose-600 transition-transform duration-300 group-hover:animate-bounce text-base font-normal ml-0.5">
+                                ✦
+                            </span>
                         </Link>
-
                         <div className="hidden md:flex items-center gap-8 text-sm font-medium">
                             {navLinks.map((link) => (
                                 <Link

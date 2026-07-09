@@ -21,6 +21,7 @@ import {
     X,
 } from "lucide-react";
 import { ImProfile } from "react-icons/im";
+import Image from "next/image";
 
 export default function DashboardSideBar() {
     const router = useRouter();
@@ -57,7 +58,7 @@ export default function DashboardSideBar() {
                 label: "Saved Jobs",
                 link: "/dashboard/seeker/saved-jobs",
             },
-            
+
             {
                 icon: Bell,
                 label: "Notifications",
@@ -155,8 +156,8 @@ export default function DashboardSideBar() {
             >
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-[#dfcbaf]">
-                    <h2 className="font-black text-xl uppercase">
-                        JobsHunting
+                    <h2 className="font-black text-2xl tracking-tight uppercase bg-gradient-to-r from-amber-500 via-rose-500 to-rose-700 bg-clip-text text-transparent">
+                        Jobs<span className="font-serif italic font-normal lowercase tracking-normal">hunting</span>
                     </h2>
 
                     <button onClick={() => setOpen(false)}>
@@ -233,19 +234,33 @@ export default function DashboardSideBar() {
                     {/* Brand */}
                     <div className="mb-6">
                         <Link href="/">
-                            <h2 className="font-black text-2xl uppercase tracking-wider">
-                                JobsHunting
+                            <h2 className="font-black text-2xl tracking-tight uppercase bg-gradient-to-r from-amber-500 via-rose-500 to-rose-700 bg-clip-text text-transparent">
+                                Jobs<span className="font-serif italic font-normal lowercase tracking-normal">hunting</span>
                             </h2>
                         </Link>
 
-                        <div className="mt-4 bg-white/30 rounded-xl p-3 text-sm">
-                            <p className="truncate font-semibold">
-                                {user?.email}
-                            </p>
+                        <div className="mt-4 bg-white/30 rounded-xl p-3 flex items-center gap-3">
 
-                            <span className="uppercase text-[10px] bg-[#2c221e] text-[#ebdcc9] px-2 py-1 rounded mt-2 inline-block">
-                                {role}
-                            </span>
+                            {/* Left Image */}
+                            <Image
+                                src={user?.image || "/user.jpg"}
+                                width={300}
+                                height={300}
+                                alt="Profile"
+                                className="w-14 h-14 rounded-full object-cover border border-[#dfcbaf]"
+                            />
+
+                            {/* Right Content */}
+                            <div className="flex-1">
+                                <p className="truncate font-semibold text-[#2c221e]">
+                                    {user?.email}
+                                </p>
+
+                                <span className="uppercase text-[10px] bg-[#2c221e] text-[#ebdcc9] px-2 py-1 rounded mt-2 inline-block">
+                                    {role}
+                                </span>
+                            </div>
+
                         </div>
                     </div>
 

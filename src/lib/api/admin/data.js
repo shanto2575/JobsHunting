@@ -1,5 +1,16 @@
 import { serverFetch } from "@/lib/server"
 
+export async function AdminProfile() {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/profile`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    return res.json();
+}
+
 export const UserData=async()=>{
     const res=await serverFetch(`/api/manage-user`);
     return res;

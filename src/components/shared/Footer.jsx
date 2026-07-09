@@ -19,23 +19,23 @@ export default function Footer() {
 
     const itemVariants = {
         hidden: { opacity: 0, y: 10 },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
-            transition: { duration: 0.4, ease: "easeOut" } 
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4, ease: "easeOut" }
         }
     };
 
     return (
-        <footer 
+        <footer
             className="border-t w-full"
-            style={{ 
-                backgroundColor: '#ebdcc9', 
-                borderColor: 'rgba(44, 34, 30, 0.1)', 
-                color: '#4a3b35'            
+            style={{
+                backgroundColor: '#ebdcc9',
+                borderColor: 'rgba(44, 34, 30, 0.1)',
+                color: '#4a3b35'
             }}
         >
-            <motion.div 
+            <motion.div
                 className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12"
                 variants={containerVariants}
                 initial="hidden"
@@ -47,12 +47,14 @@ export default function Footer() {
                     {/* Column 1: Brand Info */}
                     <motion.div variants={itemVariants} className="space-y-4 max-w-xs">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-amber-900/10 text-[#2c221e]">
-                                ✨
-                            </div>
-                            <span className="text-xl font-bold tracking-tight text-[#2c221e]">
-                                JobsHunting
-                            </span>
+                            <Link href="/" className="text-2xl font-black tracking-tight uppercase transition duration-300 group flex items-center gap-1">
+                                <span className="bg-gradient-to-r from-amber-400 via-rose-500 to-rose-700 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+                                    Jobs<span className="font-serif italic font-normal lowercase tracking-normal">hunting</span>
+                                </span>
+                                <span className="inline-block text-rose-600 transition-transform duration-300 group-hover:animate-bounce text-base font-normal ml-0.5">
+                                    ✦
+                                </span>
+                            </Link>
                         </div>
                         <p className="text-sm leading-relaxed opacity-80">
                             Connecting talented professionals with top-tier companies. Build your career, find your dream job, or hire the perfect candidate with ease.
@@ -106,7 +108,7 @@ export default function Footer() {
                         <h3 className="text-xs font-bold tracking-wider uppercase text-[#2c221e]">
                             Connect
                         </h3>
-                        
+
                         {/* Image Style Square-Rounded Social Box */}
                         <div className="flex gap-2.5 ">
                             {[
@@ -115,13 +117,13 @@ export default function Footer() {
                                 { icon: <FaLinkedin size={16} />, href: "https://linkedin.com" },
                                 { icon: <FaFacebookF size={15} />, href: "https://facebook.com" }
                             ].map((social, i) => (
-                                <motion.a 
+                                <motion.a
                                     key={i}
                                     href={social.href}
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="w-10 h-10 rounded-xl hover:shadow-2xl flex items-center justify-center transition-all duration-200 border"
-                                    style={{ 
+                                    style={{
                                         color: '#4a3b35',
                                         borderColor: 'rgba(74, 59, 53, 0.15)',
                                         backgroundColor: 'rgba(74, 59, 53, 0.03)'
@@ -145,8 +147,8 @@ export default function Footer() {
                             <span className="text-[11px] font-bold tracking-wider uppercase opacity-70 block">
                                 Questions? Support at:
                             </span>
-                            <a 
-                                href="mailto:Help@jobshunting.com" 
+                            <a
+                                href="mailto:Help@jobshunting.com"
                                 className="text-sm font-bold transition-opacity hover:opacity-80 block"
                                 style={{ color: '#2c221e' }}
                             >
@@ -158,7 +160,7 @@ export default function Footer() {
                 </div>
 
                 {/* Center Bottom Copyright section like image_c519e3.png */}
-                <motion.div 
+                <motion.div
                     variants={itemVariants}
                     className="mt-16 border-t pt-8 text-center text-xs font-medium opacity-80"
                     style={{ borderColor: 'rgba(44, 34, 30, 0.1)' }}

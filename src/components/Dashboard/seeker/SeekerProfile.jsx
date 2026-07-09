@@ -14,10 +14,35 @@ import {
     CalendarCheck,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
+import { useEffect, useState } from "react";
+import { getSeekerProfile } from "@/lib/api/seeker/data";
 
 export default function DashboardOverviewCard() {
     const { data: session } = authClient.useSession();
     const user = session?.user;
+
+    const [profile, setProfile] = useState({
+        appliedJobs: 0,
+        savedJobs: 0,
+        interviews: 0,
+        resume: false,
+    });
+
+    useEffect(() => {
+        if (!user?.email) return;
+
+        async function loadProfile() {
+            const data = await getSeekerProfile(user.email);
+
+            if (data.success) {
+                setProfile(data);
+            }
+        }
+
+        loadProfile();
+    }, [user]);
+
+    console.log(profile,';;')
 
     return (
         /* Main Container: Premium Soft Neumorphic Card with 0.1 shadow intensity */
@@ -62,22 +87,20 @@ export default function DashboardOverviewCard() {
                             </span>
 
                             <span
-                                className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2 shadow-[2px_2px_5px_rgba(44,34,30,0.05)] ${
-                                    user?.plan === "pro"
-                                        ? "bg-yellow-200 text-yellow-800"
-                                        : "bg-gray-200 text-gray-700"
-                                }`}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase flex items-center gap-2 shadow-[2px_2px_5px_rgba(44,34,30,0.05)] ${user?.plan === "pro"
+                                    ? "bg-yellow-200 text-yellow-800"
+                                    : "bg-gray-200 text-gray-700"
+                                    }`}
                             >
                                 <Crown size={14} />
                                 {user?.plan}
                             </span>
 
                             <span
-                                className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-[2px_2px_5px_rgba(44,34,30,0.05)] ${
-                                    user?.emailVerified
-                                        ? "bg-green-100 text-green-700"
-                                        : "bg-red-100 text-red-700"
-                                }`}
+                                className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-[2px_2px_5px_rgba(44,34,30,0.05)] ${user?.emailVerified
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-red-100 text-red-700"
+                                    }`}
                             >
                                 {user?.emailVerified ? (
                                     <CheckCircle2 size={14} />
@@ -109,7 +132,7 @@ export default function DashboardOverviewCard() {
                         <h4 className="font-bold text-sm uppercase tracking-wider">Applied Jobs</h4>
                     </div>
                     <p className="text-3xl font-black text-[#2c221e]">
-                        {user?.appliedJobs || 0}
+                        {profile?.appliedJobs || 0}
                     </p>
                 </div>
 
@@ -120,7 +143,7 @@ export default function DashboardOverviewCard() {
                         <h4 className="font-bold text-sm uppercase tracking-wider">Saved Jobs</h4>
                     </div>
                     <p className="text-3xl font-black text-[#2c221e]">
-                        {user?.savedJobs || 0}
+                        {profile?.savedJobs || 0}
                     </p>
                 </div>
 
@@ -131,7 +154,7 @@ export default function DashboardOverviewCard() {
                         <h4 className="font-bold text-sm uppercase tracking-wider">Interviews</h4>
                     </div>
                     <p className="text-3xl font-black text-[#2c221e]">
-                        {user?.interviews || 0}
+                        {profile?.interviews || 0}
                     </p>
                 </div>
 
@@ -141,9 +164,17 @@ export default function DashboardOverviewCard() {
                         <FileText size={18} />
                         <h4 className="font-bold text-sm uppercase tracking-wider">Resume</h4>
                     </div>
-                    <p className="text-base font-black text-[#2c221e]">
-                        {user?.resume ? "Uploaded" : "Not Uploaded"}
-                    </p>
+                    {profile.resume ? (
+                        <a
+                            href={profile.resume}
+                            target="_blank"
+                            className="text-blue-600 underline"
+                        >
+                            View Resume
+                        </a>
+                    ) : (
+                        <span>Not Uploaded</span>
+                    )}
                 </div>
             </div>
 

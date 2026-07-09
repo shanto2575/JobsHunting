@@ -1,5 +1,15 @@
 import { serverFetch } from "@/lib/server"
 
+export async function getSeekerProfile(email) {
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/seeker/profile/${email}`,
+        {
+            cache: "no-store",
+        }
+    );
+
+    return res.json();
+}
 export const AllJobs = async (searchParams) => {
 
     const query = new URLSearchParams(searchParams).toString();

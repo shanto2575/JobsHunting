@@ -15,6 +15,7 @@ export default async function DashboardOverviewCard() {
     const user = await getUser();
     const isPro = user?.plan === "pro";
     const data = await EmployProfile(user.email);
+    // console.log(data)
 
     return (
         /* Outer Card: Theme based bg [#f4ece1] & soft blended shadows matching the warm palette */
@@ -91,7 +92,7 @@ export default async function DashboardOverviewCard() {
                         </div>
                     </div>
                     <p className="text-3xl font-black text-[#2c221e]">
-                        {data?.totalPublish || 0}
+                        {data?.result.totalPublish || 0}
                     </p>
                 </div>
 
@@ -104,7 +105,7 @@ export default async function DashboardOverviewCard() {
                         </div>
                     </div>
                     <p className="text-3xl font-black text-[#2c221e]">
-                        {data?.totalApplicants || 0}
+                        {data?.result.totalApplicants || 0}
                     </p>
                 </div>
             </div>

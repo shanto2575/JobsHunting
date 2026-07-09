@@ -62,7 +62,7 @@ export default function SignUpPage() {
             <div className="absolute bottom-[-15%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-[#dfcbaf]/70 blur-[130px] pointer-events-none animate-pulse-slow" />
 
             {/* Master Neumorphic Editorial Vessel */}
-            <div className="w-full max-w-6xl mx-auto min-h-[820px] bg-[#ebdcc9] rounded-[48px] shadow-[30px_30px_60px_#c3b69e,-30px_-30px_60px_#ffffff] flex flex-col lg:flex-row overflow-hidden relative z-10 p-3 border border-white/30">
+            <div className="w-full max-w-6xl mx-auto min-h-[820px] bg-[#ebdcc9] rounded-[48px] shadow-[30px_30px_60px_#c3b69e,-30px_-30px_60px_0.1] flex flex-col lg:flex-row overflow-hidden relative z-10 p-3 border border-white/30">
                 
                 {/* Left Section: Avant-Garde Minimal Branding */}
                 <div className="hidden lg:flex flex-col justify-between w-5/12 p-20 rounded-[40px] bg-gradient-to-b from-white/25 via-white/5 to-transparent relative overflow-hidden">
