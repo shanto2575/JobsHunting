@@ -1,6 +1,12 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { serverFetch } from "@/lib/server"
 
+export const EmployProfile=async(id)=>{
+    const res=await serverFetch(`/api/profile/${id}`)
+    return res;
+    
+}
+
 export const EmployerPostedJobs = async (email) => {
     const res = await serverFetch(`/api/employer/postedjobs/${email}`)
     return res;
