@@ -239,7 +239,7 @@ export default function DashboardSideBar() {
                             </h2>
                         </Link>
 
-                        <div className="mt-4 bg-white/30 rounded-xl p-3 flex items-center gap-3">
+                        <div className="mt-4 bg-white/50 w-full rounded-xl p-2  flex items-center gap-1 ">
 
                             {/* Left Image */}
                             <Image
@@ -251,8 +251,8 @@ export default function DashboardSideBar() {
                             />
 
                             {/* Right Content */}
-                            <div className="flex-1">
-                                <p className="truncate font-semibold text-[#2c221e]">
+                            <div className="flex-1 ">
+                                <p className="truncate font-semibold text-sm text-[#2c221e]">
                                     {user?.email}
                                 </p>
 

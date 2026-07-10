@@ -25,9 +25,9 @@ export default function SignUpPage() {
             name: e.name,
             image: e.image,
             role: e.role,
-            callbackURL: "/" 
+            callbackURL: "/"
         });
-        
+
         if (data) {
             showToast.success('SignUp Successful');
             route.push('/');
@@ -54,23 +54,29 @@ export default function SignUpPage() {
         },
     };
 
+    const HandleSignUp = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    };
+
     return (
         <div className="min-h-screen w-full flex items-center justify-center selection:bg-[#2c221e]/20 p-4 sm:p-6 relative overflow-hidden" style={{ backgroundColor: themeBg }}>
-            
+
             {/* Ultra-Soft Ambient Lighting Orbs */}
             <div className="absolute top-[-15%] left-[-15%] w-[60vw] h-[60vw] rounded-full bg-white/50 blur-[150px] pointer-events-none animate-pulse-slow" />
             <div className="absolute bottom-[-15%] right-[-15%] w-[50vw] h-[50vw] rounded-full bg-[#dfcbaf]/70 blur-[130px] pointer-events-none animate-pulse-slow" />
 
             {/* Master Neumorphic Editorial Vessel */}
             <div className="w-full max-w-6xl mx-auto min-h-[820px] bg-[#ebdcc9] rounded-[48px] shadow-[30px_30px_60px_#c3b69e,-30px_-30px_60px_0.1] flex flex-col lg:flex-row overflow-hidden relative z-10 p-3 border border-white/30">
-                
+
                 {/* Left Section: Avant-Garde Minimal Branding */}
                 <div className="hidden lg:flex flex-col justify-between w-5/12 p-20 rounded-[40px] bg-gradient-to-b from-white/25 via-white/5 to-transparent relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-3xl pointer-events-none" />
-                    
+
                     <div className="max-w-xs my-auto space-y-8 relative z-10">
                         <div className="space-y-4">
-                            <motion.span 
+                            <motion.span
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 0.4 }}
                                 transition={{ duration: 0.6 }}
@@ -78,7 +84,7 @@ export default function SignUpPage() {
                             >
                                 Executive Network
                             </motion.span>
-                            
+
                             <motion.h1
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -127,7 +133,7 @@ export default function SignUpPage() {
 
                         {/* Interactive Form */}
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                            
+
                             {/* Full Name */}
                             <motion.div variants={fadeUp} className="group relative">
                                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-[#2c221e]/50 mb-2 px-1 group-focus-within:text-[#2c221e] transition-colors duration-300">
@@ -257,6 +263,7 @@ export default function SignUpPage() {
 
                         {/* Extruded Google Button */}
                         <motion.button
+                            onClick={HandleSignUp}
                             variants={fadeUp}
                             whileHover={{ y: -1, shadow: "[6px_6px_12px_#c3b69e,-6px_-6px_12px_#ffffff]" }}
                             whileTap={{ scale: 0.985 }}

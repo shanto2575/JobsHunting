@@ -27,9 +27,12 @@ export default function Footer() {
     };
 
     return (
-        <footer className="border-t w-full bg-[#ebdcc9] border-[rgba(44,34,30,0.1)] text-[#4a3b35]">
+        <footer className="w-full bg-[#ebdcc9] text-[#4a3b35] pt-12 pb-8">
             <motion.div
-                className="mx-auto max-w-7xl px-6 py-16 sm:px-8 lg:px-12"
+                className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12 rounded-[2.5rem] bg-[#ebdcc9]"
+                style={{
+                    boxShadow: "12px 12px 24px #c9bcab, -12px -12px 24px #fffdf7"
+                }}
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -102,8 +105,8 @@ export default function Footer() {
                             Connect
                         </h3>
 
-                        {/* Social Icons Container */}
-                        <div className="flex gap-3">
+                        {/* Neumorphic Social Icons Container */}
+                        <div className="flex gap-4">
                             {[
                                 { icon: <BsTwitterX size={14} />, href: "https://twitter.com" },
                                 { icon: <FaGithub size={15} />, href: "https://github.com" },
@@ -115,21 +118,30 @@ export default function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all duration-200 bg-[rgba(74,59,53,0.03)] border-[rgba(74,59,53,0.15)] text-[#4a3b35] hover:bg-[#2c221e] hover:text-[#ebdcc9] hover:border-[#2c221e]"
-                                    whileHover={{ y: -3 }}
+                                    className="w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-300 bg-[#ebdcc9] text-[#2c221e] hover:text-rose-700"
+                                    style={{
+                                        boxShadow: "5px 5px 10px #c9bcab, -5px -5px 10px #fffdf7"
+                                    }}
+                                    whileHover={{ y: -2 }}
                                 >
                                     {social.icon}
                                 </motion.a>
                             ))}
                         </div>
 
-                        <div className="space-y-1 pt-2">
-                            <span className="text-[9px] font-black tracking-widest uppercase opacity-70 block">
+                        {/* Neumorphic Support Box */}
+                        <div 
+                            className="p-3.5 rounded-2xl bg-[#ebdcc9] space-y-1"
+                            style={{
+                                boxShadow: "inset 4px 4px 8px #c9bcab, inset -4px -4px 8px #fffdf7"
+                            }}
+                        >
+                            <span className="text-[9px] font-black tracking-widest uppercase opacity-60 block">
                                 Questions? Support at:
                             </span>
                             <a
                                 href="mailto:Help@jobshunting.com"
-                                className="text-sm font-black text-[#2c221e] hover:text-rose-700 transition-colors duration-200 block"
+                                className="text-xs sm:text-sm font-black text-[#2c221e] hover:text-rose-700 transition-colors duration-200 block"
                             >
                                 Help@jobshunting.com
                             </a>
@@ -141,7 +153,10 @@ export default function Footer() {
                 {/* Center Bottom Copyright Section */}
                 <motion.div
                     variants={itemVariants}
-                    className="mt-16 border-t pt-8 text-center text-xs font-semibold border-[rgba(44,34,30,0.1)] opacity-80"
+                    className="mt-12 pt-6 text-center text-xs font-semibold opacity-80"
+                    style={{
+                        borderTop: "1px solid rgba(44, 34, 30, 0.08)"
+                    }}
                 >
                     <p>
                         &copy; {new Date().getFullYear()} JobsHunting. All rights reserved. Created with{" "}

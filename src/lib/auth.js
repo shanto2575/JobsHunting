@@ -18,6 +18,12 @@ export const auth = betterAuth({
             clientId: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
         },
+
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        },
+
     },
     user: {
         additionalFields: {
@@ -27,8 +33,8 @@ export const auth = betterAuth({
             plan: {
                 defaultValue: "free",
             },
-            status:{
-                defaultValue:'active'
+            status: {
+                defaultValue: 'active'
             }
         },
     },

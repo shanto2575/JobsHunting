@@ -33,7 +33,8 @@ const UnauthorizedPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#e3d3bc] flex items-center justify-center p-4 sm:p-8 font-sans selection:bg-rose-950 selection:text-rose-200">
+        <div className="min-h-screen bg-[#f4ece1] flex items-center justify-center p-4 sm:p-8 font-sans selection:bg-[#2c221e] selection:text-[#ebdcc9] relative overflow-hidden">
+            
             {/* Soft Deep Red Ambient Background Glow */}
             <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-rose-950/5 blur-[120px] pointer-events-none" />
 
@@ -41,108 +42,120 @@ const UnauthorizedPage = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="max-w-5xl w-full md:w-11/12 grid grid-cols-1 md:grid-cols-12 rounded-[2.5rem] border border-rose-950/15 bg-white/40 backdrop-blur-xl shadow-[20px_20px_50px_rgba(79,15,19,0.05),-20px_-20px_50px_rgba(255,255,255,0.1)] overflow-hidden"
+                className="max-w-5xl w-full md:w-11/12 grid grid-cols-1 md:grid-cols-12 rounded-[2.5rem] bg-[#f4ece1] overflow-hidden"
+                style={{
+                    boxShadow: "20px 20px 40px #d9d1c6, -20px -20px 40px #ffffff"
+                }}
             >
                 {/* Left Column: Info Section */}
-                <div className="md:col-span-7 p-8 sm:p-14 flex flex-col justify-between border-b md:border-b-0 md:border-r border-rose-950/10 relative overflow-hidden group">
+                <div className="md:col-span-7 p-8 sm:p-14 flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#2c221e]/10 relative overflow-hidden group">
                     <div className="absolute -top-24 -left-24 w-80 h-80 bg-rose-600/5 rounded-full blur-3xl transition-all duration-700 group-hover:bg-rose-600/10" />
 
                     {/* Meta Badge */}
                     <motion.div variants={itemVariants} className="flex items-center gap-2.5 relative z-10">
                         <span className="h-2.5 w-2.5 rounded-full bg-rose-600 animate-ping" />
-                        <span className="text-[11px] font-black tracking-[0.25em] uppercase text-rose-950/60">
+                        <span className="text-[11px] font-black tracking-[0.25em] uppercase text-[#2c221e]/60">
                             Security Violation • Breach
                         </span>
                     </motion.div>
 
-                    {/* Main Text Content (Tightened spacing & Larger Typography) */}
+                    {/* Main Text Content */}
                     <div className="my-6 space-y-6 relative z-10">
-                        {/* Matte Deep Red Icon Box */}
+                        {/* Neumorphic Matte Dark Icon Box */}
                         <motion.div
                             variants={itemVariants}
                             whileHover={{ scale: 1.05, rotate: -5 }}
-                            className="inline-flex p-4.5 rounded-2xl bg-rose-950 text-rose-200 shadow-lg shadow-rose-950/10 cursor-default border border-rose-900/20"
+                            className="inline-flex p-4.5 rounded-[1.8rem] bg-[#2c221e] text-white cursor-default"
+                            style={{
+                                boxShadow: "8px 8px 16px rgba(44,34,30,0.25), -4px -4px 12px rgba(255,255,255,0.1)"
+                            }}
                         >
-                            <ShieldAlert size={40} strokeWidth={1.5} className="text-rose-400" />
+                            <ShieldAlert size={36} strokeWidth={1.5} className="text-rose-500" />
                         </motion.div>
 
                         <div className="space-y-4">
                             <motion.h1
                                 variants={itemVariants}
-                                className="text-4xl sm:text-5xl lg:text-6xl font-black text-rose-950 tracking-tight leading-[1.05]"
+                                className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#2c221e] tracking-tight leading-[1.05]"
                             >
                                 Restricted Zone. <br />
-                                <span className="text-rose-700 font-serif italic font-normal">Access Denied.</span>
+                                <span className="text-rose-600 font-serif italic font-normal lowercase tracking-normal">Access Denied.</span>
                             </motion.h1>
                             <motion.p
                                 variants={itemVariants}
-                                className="text-sm sm:text-base font-medium text-rose-900/80 max-w-lg leading-relaxed"
+                                className="text-sm sm:text-base font-semibold text-[#2c221e]/80 max-w-lg leading-relaxed"
                             >
                                 Your session tokens do not possess authorization permissions for this directory. Security firewall protocol active. Please contact system administration if this is an error.
                             </motion.p>
                         </div>
                     </div>
 
-                    <motion.p variants={itemVariants} className="text-xs sm:text-sm text-rose-950/40 font-bold relative z-10">
+                    <motion.p variants={itemVariants} className="text-xs sm:text-sm text-[#2c221e]/40 font-bold relative z-10">
                         Think this is a platform bug? Please log a report to security command.
                     </motion.p>
                 </div>
 
                 {/* Right Column: Clearance Gateway */}
-                <div className="md:col-span-5 bg-rose-950/[0.015] p-8 sm:p-14 flex flex-col justify-center space-y-8 relative">
+                <div className="md:col-span-5 bg-[#f4ece1] p-8 sm:p-14 flex flex-col justify-center space-y-8 relative">
                     <motion.div variants={itemVariants} className="space-y-2.5">
-                        <span className="text-xs font-black text-rose-950/40 uppercase tracking-widest block">
+                        <span className="text-xs font-black text-[#2c221e]/40 uppercase tracking-widest block">
                             Clearance Gateway
                         </span>
-                        <h3 className="text-2xl font-black text-rose-950 tracking-tight">
+                        <h3 className="text-2xl font-black text-[#2c221e] tracking-tight">
                             Verify Identity
                         </h3>
                     </motion.div>
 
                     {/* Actions Grid */}
-                    <motion.div variants={itemVariants} className="flex flex-col gap-4">
-                        {/* Primary Crimson Sign In Button */}
-                        <Link href='/login' passHref>
+                    <motion.div variants={itemVariants} className="flex flex-col gap-5">
+                        {/* Primary Crimson Sign In Button - Neumorphic Popout */}
+                        <Link href='/login' passHref className="w-full">
                             <motion.button
-                                whileHover={{ scale: 1.01, backgroundColor: "#3b070c" }}
+                                whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.99 }}
-                                className="w-full flex items-center justify-between px-7 py-4.5 rounded-xl bg-rose-950 text-rose-100 font-black text-xs sm:text-sm uppercase tracking-widest shadow-xl shadow-rose-950/10 cursor-pointer group border border-rose-900/30"
+                                className="w-full flex items-center justify-between px-7 py-4.5 rounded-xl bg-rose-700 text-white font-black text-xs sm:text-sm uppercase tracking-widest cursor-pointer group shadow-[0_4px_14px_rgba(190,24,74,0.3)] transition-all duration-200"
                             >
                                 <span className="flex items-center gap-3">
-                                    <LogIn size={18} className="text-rose-300" />
+                                    <LogIn size={18} className="text-white" />
                                     Sign In to Account
                                 </span>
-                                <span className="text-sm transition-transform duration-300 group-hover:translate-x-1 text-rose-400">→</span>
+                                <span className="text-sm transition-transform duration-300 group-hover:translate-x-1 text-white">→</span>
                             </motion.button>
                         </Link>
 
-                        {/* Return to Previous */}
+                        {/* Return to Previous - Neumorphic Light Flat/Embossed */}
                         <motion.button
-                            whileHover={{ scale: 1.01, backgroundColor: "rgba(159,18,57,0.04)" }}
+                            whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.99 }}
                             onClick={() => router.back()}
-                            className="w-full flex items-center gap-3 px-7 py-4.5 rounded-xl border border-rose-950/15 bg-white/20 text-xs sm:text-sm font-black uppercase tracking-widest text-rose-950 cursor-pointer transition-colors"
+                            className="w-full flex items-center gap-3 px-7 py-4.5 rounded-xl bg-[#f4ece1] text-xs sm:text-sm font-black uppercase tracking-widest text-[#2c221e] cursor-pointer transition-all duration-200"
+                            style={{
+                                boxShadow: "5px 5px 10px #d9d1c6, -5px -5px 10px #ffffff"
+                            }}
                         >
-                            <ArrowLeft size={18} className="text-rose-950/60" />
+                            <ArrowLeft size={18} className="text-rose-600" />
                             Return to Previous
                         </motion.button>
 
-                        {/* Teleport to Home */}
+                        {/* Teleport to Home - Neumorphic Inset Text Button */}
                         <motion.button
-                            whileHover={{ scale: 1.01, backgroundColor: "rgba(159,18,57,0.03)" }}
+                            whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.99 }}
                             onClick={() => router.push("/")}
-                            className="w-full flex items-center gap-3 px-7 py-4.5 rounded-xl bg-transparent text-xs sm:text-sm font-black uppercase tracking-widest text-rose-950/70 hover:text-rose-950 cursor-pointer transition-colors"
+                            className="w-full flex items-center gap-3 px-7 py-4.5 rounded-xl bg-transparent text-xs sm:text-sm font-black uppercase tracking-widest text-[#2c221e]/70 hover:text-[#2c221e] cursor-pointer transition-all duration-200"
                         >
-                            <Home size={18} className="text-rose-950/50" />
+                            <Home size={18} className="text-[#2c221e]/50" />
                             Teleport to Home
                         </motion.button>
                     </motion.div>
 
-                    {/* Footer Status */}
+                    {/* Footer Status - Inset Style Track */}
                     <motion.div
                         variants={itemVariants}
-                        className="pt-4 border-t border-rose-950/10 flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-rose-950/40"
+                        className="p-3.5 rounded-xl bg-[#f4ece1] flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-[#2c221e]/50"
+                        style={{
+                            boxShadow: "inset 2px 2px 5px #d9d1c6, inset -2px -2px 5px #ffffff"
+                        }}
                     >
                         <span>Status: 401 / Unauthorized</span>
                         <span>Secure TLS 1.3</span>

@@ -5,10 +5,10 @@ export async function proxy(request) {
     const session = await auth.api.getSession({
         headers: request.headers,
     });
-    console.log(session,'sesision')
+    console.log(session, ' proxy')
 
     if (!session?.user) {
-        return NextResponse.redirect(new URL("/signin", request.url));
+        return NextResponse.redirect(new URL("/login", request.url));
     }
 
     if (session.user.status === "blocked") {
@@ -20,4 +20,8 @@ export async function proxy(request) {
     }
 
     return NextResponse.next();
+}
+
+export const config = {
+    matcher: ['/jobs/:path',]
 }
