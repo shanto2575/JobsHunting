@@ -7,7 +7,7 @@ const JobsMainPage = async ({ searchParams }) => {
     const jobs = await AllJobs(params);
     // console.log(jobs)
     return (
-        <div className='w-full'>
+        <div className='w-full bg-[#f4ece1]'>
             <AllJobsPage job={jobs?.result || []} pagination={jobs.pagination}/>
         </div>
     )

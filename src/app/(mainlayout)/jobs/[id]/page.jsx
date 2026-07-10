@@ -124,34 +124,31 @@ export default function JobDetailsPage({ params }) {
     };
 
     return (
-        <div className="min-h-screen bg-[#ebdcc9]/10 px-4 md:px-8 py-8 font-sans selection:bg-[#2c221e] selection:text-[#ebdcc9]">
+        <div className="min-h-screen bg-[#f4ece1] px-4 md:px-8 py-6 font-sans selection:bg-[#2c221e] selection:text-[#ebdcc9]">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
                     {/* Left Layout */}
-                    <div className="lg:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-5">
                         
-                        {/* Neumorphic Flat Back Button */}
+                        {/* Back Button */}
                         <button
                             onClick={() => router.back()}
-                            className="group flex items-center gap-2 h-11 px-5 rounded-xl bg-[#f4ece1] text-xs font-black uppercase tracking-wider text-[#2c221e] transition-all duration-200 active:scale-98 cursor-pointer"
-                            style={{
-                                boxShadow: "6px 6px 12px #d9d1c6, -6px -6px 12px #ffffff"
-                            }}
+                            className="group flex items-center gap-2 h-10 px-4 rounded-xl border border-[#dfcbaf] bg-white/40 backdrop-blur-md text-xs font-bold uppercase tracking-wider text-[#2c221e] transition-all hover:bg-[#2c221e] hover:text-[#ebdcc9] hover:border-[#2c221e] shadow-[4px_4px_10px_rgba(44,34,30,0.05),-4px_-4px_10px_rgba(255,255,255,0.1)] active:scale-98 cursor-pointer"
                         >
-                            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1 text-rose-600" strokeWidth={2.5} />
+                            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
                             Back
                         </button>
 
-                        {/* Combined Card: Image & Details */}
+                        {/* Combined Card */}
                         <div 
-                            className="rounded-[2.5rem] bg-[#f4ece1] p-4 md:p-7 space-y-6"
+                            className="rounded-[2.5rem] border border-[#dfcbaf]/70 bg-white/40 backdrop-blur-md p-4 md:p-6 space-y-6"
                             style={{
-                                // boxShadow: "18px 18px 36px #d9d1c6, -18px -18px 36px #ffffff"
+                                boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
                             }}
                         >
                             {/* Full-bleed Image Box */}
-                            <div className="-mx-4 -mt-4 md:-mx-7 md:-mt-7 mb-6 relative h-[240px] md:h-[400px] rounded-t-[2.5rem] overflow-hidden border-b border-[#2c221e]/5 group">
+                            <div className="-mx-4 -mt-4 md:-mx-6 md:-mt-6 mb-6 relative h-[230px] md:h-[380px] rounded-t-[2.5rem] overflow-hidden border-b border-[#dfcbaf] group">
                                 {job.image && (
                                     <Image
                                         src={job.image}
@@ -161,23 +158,21 @@ export default function JobDetailsPage({ params }) {
                                         priority
                                     />
                                 )}
-                                <div className="absolute inset-0 bg-gradient-to-b from-[#2c221e]/30 via-transparent to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-[#2c221e]/40 via-transparent to-transparent" />
 
-                                {/* Action Floating Badges */}
-                                <div className="absolute top-5 left-5 right-5 flex items-center justify-between gap-4 z-10">
-                                    <span className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#f4ece1]/95 text-[#2c221e] text-xs font-black uppercase tracking-wider border border-white/40 shadow-lg whitespace-nowrap">
+                                <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-4 z-10">
+                                    <span className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#ebdcc9]/95 text-[#2c221e] text-xs font-black uppercase tracking-wider backdrop-blur-md border border-[#dfcbaf] shadow-md whitespace-nowrap">
                                         <Sparkles size={12} className="text-amber-600" />
                                         {job.category}
                                     </span>
 
                                     <div className="flex items-center gap-3">
-                                        {/* Neumorphic Floating Action Buttons */}
                                         <button
                                             onClick={handleBookmark}
-                                            className={`flex items-center justify-center p-3.5 rounded-xl backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer shadow-lg ${
+                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${
                                                 isBookmarked
-                                                ? "bg-[#2c221e] text-[#f4ece1]"
-                                                : "bg-[#f4ece1]/90 text-[#2c221e] hover:bg-[#2c221e] hover:text-[#f4ece1]"
+                                                ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
+                                                : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
                                             }`}
                                         >
                                             <Bookmark size={16} fill={isBookmarked ? "currentColor" : "none"} />
@@ -185,10 +180,10 @@ export default function JobDetailsPage({ params }) {
 
                                         <button
                                             onClick={handleReport}
-                                            className={`flex items-center justify-center p-3.5 rounded-xl backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer shadow-lg ${
+                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${
                                                 isReported
-                                                ? "bg-rose-700 text-white"
-                                                : "bg-[#f4ece1]/90 text-rose-600 hover:bg-rose-700 hover:text-white"
+                                                ? "bg-rose-600 text-white border-rose-600"
+                                                : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
                                             }`}
                                         >
                                             <Flag size={16} fill={isReported ? "currentColor" : "none"} />
@@ -199,70 +194,69 @@ export default function JobDetailsPage({ params }) {
 
                             {/* Info Block */}
                             <div className="px-2 md:px-4">
-                                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 border-b border-[#2c221e]/10 pb-6">
+                                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 border-b border-[#dfcbaf]/40 pb-6">
                                     <div>
-                                        <p className="text-xs font-black text-[#2c221e]/60 uppercase tracking-widest flex items-center gap-1.5">
-                                            <Building2 size={13} className="text-rose-600" />
+                                        <p className="text-xs font-black text-[#4a3b35]/70 uppercase tracking-widest flex items-center gap-1.5">
+                                            <Building2 size={12} className="text-rose-600" />
                                             {job.company}
                                         </p>
-                                        <h1 className="text-3xl md:text-4xl font-black text-[#2c221e] mt-2.5 tracking-tight leading-[1.1]">
+                                        <h1 className="text-3xl md:text-4xl font-black text-[#2c221e] mt-2 tracking-tight leading-[1.1]">
                                             {job.title}
                                         </h1>
                                     </div>
 
-                                    <span className={`self-start md:self-auto px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider ${
+                                    <span className={`self-start md:self-auto px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border ${
                                         job.status === "active"
-                                        ? "bg-emerald-500/10 text-emerald-700"
-                                        : "bg-rose-500/10 text-rose-700"
+                                        ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+                                        : "bg-rose-500/10 text-rose-700 border-rose-500/20"
                                     }`}>
                                         ● {job.status}
                                     </span>
                                 </div>
 
-                                {/* Neumorphic Inset Stats Grid */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                                {/* Inset Stats Grid */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
                                     {[
                                         { icon: <MapPin size={16} />, label: "Location", val: job.location },
                                         { icon: <Briefcase size={16} />, label: "Job Type", val: job.type },
                                         { icon: <Clock3 size={16} />, label: "Experience", val: `${job.experience} Yrs Req.` },
                                         { icon: <CircleDollarSign size={16} />, label: "Salary Pack", val: `৳ ${job.salary?.toLocaleString()}` }
                                     ].map((stat, idx) => (
-                                        <div key={idx} className="flex flex-col gap-1 bg-[#f4ece1] p-4 rounded-2xl"
+                                        <div key={idx} className="flex flex-col gap-1 bg-[#2c221e]/5 p-4 rounded-2xl border border-[#dfcbaf]/20"
                                              style={{ boxShadow: "inset 4px 4px 8px #d9d1c6, inset -4px -4px 8px #ffffff" }}>
                                             <span className="text-rose-600">{stat.icon}</span>
-                                            <span className="text-[10px] font-black uppercase text-[#2c221e]/40 mt-1">{stat.label}</span>
+                                            <span className="text-[10px] font-bold uppercase text-[#4a3b35]/70 mt-1">{stat.label}</span>
                                             <span className="text-xs font-extrabold text-[#2c221e] tracking-tight">{stat.val}</span>
                                         </div>
                                     ))}
                                 </div>
 
-                                {/* Job Description Block */}
+                                {/* Job Description */}
                                 <div className="mt-8">
                                     <h2 className="text-lg font-black text-[#2c221e] tracking-tight mb-4 border-l-4 border-[#2c221e] pl-3">
                                         Job Description
                                     </h2>
-                                    <p className="text-[#2c221e]/80 text-sm leading-relaxed font-semibold whitespace-pre-line bg-[#f4ece1] p-5 rounded-2xl"
+                                    <p className="text-[#2c221e]/80 text-sm leading-relaxed font-semibold whitespace-pre-line bg-[#f4ece1]/30 p-5 rounded-2xl border border-[#dfcbaf]/20"
                                        style={{ boxShadow: "inset 4px 4px 9px #d9d1c6, inset -4px -4px 9px #ffffff" }}>
                                         {job.description}
                                     </p>
                                 </div>
 
-                                {/* Total Application Tracker Banner */}
-                                <div className="mt-6 rounded-2xl bg-[#2c221e] p-5 text-[#f4ece1]"
-                                     style={{ boxShadow: "8px 8px 20px rgba(44,34,30,0.15)" }}>
+                                {/* Application Tracker Banner */}
+                                <div className="mt-6 rounded-2xl border border-[#dfcbaf] bg-gradient-to-r from-[#2c221e] to-[#4a3b35] p-5 text-[#ebdcc9] shadow-lg">
                                     <div className="flex items-center justify-between">
                                         <div>
-                                            <p className="text-[10px] uppercase tracking-widest text-[#f4ece1]/60 font-bold">
+                                            <p className="text-[10px] uppercase tracking-widest text-[#ebdcc9]/80 font-bold">
                                                 Total Applications
                                             </p>
                                             <h2 className="text-3xl font-black mt-1 text-rose-500">
                                                 {job.applicants?.length || 0}
                                             </h2>
-                                            <p className="text-xs text-[#f4ece1]/70 mt-1 font-medium">
+                                            <p className="text-xs opacity-70 mt-1 font-medium">
                                                 Candidates have already submitted requests
                                             </p>
                                         </div>
-                                        <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 shadow-inner text-rose-400">
+                                        <div className="w-14 h-14 rounded-2xl bg-[#ebdcc9]/20 flex items-center justify-center shadow-md text-rose-400">
                                             <UsersRound size={26} />
                                         </div>
                                     </div>
@@ -272,11 +266,11 @@ export default function JobDetailsPage({ params }) {
                     </div>
 
                     {/* Right Layout Sidebar */}
-                    <div className="space-y-6 lg:sticky lg:top-8 lg:mt-16">
+                    <div className="space-y-6 lg:sticky lg:top-8 lg:mt-14">
                         
                         {/* Ready to Apply Action Area */}
                         <div 
-                            className="rounded-[2.5rem] bg-[#f4ece1] p-6 flex flex-col items-center text-center relative overflow-hidden"
+                            className="rounded-[2.5rem] border border-[#dfcbaf] bg-white/40 p-6 flex flex-col items-center text-center relative overflow-hidden"
                             style={{
                                 boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
                             }}
@@ -293,12 +287,12 @@ export default function JobDetailsPage({ params }) {
 
                         {/* Insights Table */}
                         <div 
-                            className="rounded-[2.5rem] bg-[#f4ece1] p-6 space-y-4"
+                            className="rounded-[2.5rem] border border-[#dfcbaf]/70 bg-white/50 backdrop-blur-md p-6 space-y-4"
                             style={{
                                 boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
                             }}
                         >
-                            <h4 className="text-xs font-black uppercase tracking-wider text-[#2c221e] border-b border-[#2c221e]/10 pb-3 flex items-center gap-1.5">
+                            <h4 className="text-xs font-black uppercase tracking-wider text-[#2c221e] border-b border-[#dfcbaf]/40 pb-3 flex items-center gap-1.5">
                                 <ShieldCheck size={14} className="text-rose-600" /> Job Insights Summary
                             </h4>
 
@@ -310,7 +304,7 @@ export default function JobDetailsPage({ params }) {
                                     { icon: <User size={13} />, label: "JobPost Owner", val: job.userEmail, isTrunc: true },
                                     { icon: <IdCard size={13} />, label: "Job ID Token", val: job._id, isMono: true }
                                 ].map((row, idx) => (
-                                    <div key={idx} className="flex items-center justify-between text-xs font-bold border-b border-[#2c221e]/5 pb-2.5 last:border-0 last:pb-0">
+                                    <div key={idx} className="flex items-center justify-between text-xs font-bold border-b border-[#dfcbaf]/20 pb-2.5 last:border-0 last:pb-0">
                                         <span className="text-[#2c221e]/60 flex items-center gap-1.5">
                                             {row.icon} {row.label}
                                         </span>

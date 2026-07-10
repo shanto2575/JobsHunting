@@ -108,10 +108,10 @@ export default function Footer() {
                         {/* Neumorphic Social Icons Container */}
                         <div className="flex gap-4">
                             {[
-                                { icon: <BsTwitterX size={14} />, href: "https://twitter.com" },
-                                { icon: <FaGithub size={15} />, href: "https://github.com" },
-                                { icon: <FaLinkedin size={15} />, href: "https://linkedin.com" },
-                                { icon: <FaFacebookF size={14} />, href: "https://facebook.com" }
+                                { icon: <BsTwitterX size={14} />, href: "https://x.com/home" },
+                                { icon: <FaGithub size={15} />, href: "https://github.com/shanto2575" },
+                                { icon: <FaLinkedin size={15} />, href: "https://www.linkedin.com/in/shantosharma" },
+                                { icon: <FaFacebookF size={14} />, href: "https://www.facebook.com/shanto.sharma.2575" }
                             ].map((social, i) => (
                                 <motion.a
                                     key={i}

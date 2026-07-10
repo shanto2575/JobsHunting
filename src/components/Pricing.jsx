@@ -4,11 +4,18 @@ import { authClient } from "@/lib/auth-client";
 import { motion } from "framer-motion";
 import { Check, Sparkles, UserCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Pricing() {
     const { data: session } = authClient.useSession();
     const router = useRouter();
     const user = session?.user;
+
+    const [mounted, setMounted] = useState(false); 
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     const isPro = user?.role === "pro" || user?.plan === "pro";
 
@@ -65,7 +72,7 @@ export default function Pricing() {
                     {/* Free Plan - Neumorphic Light */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={!isPro ? { y: -5 } : {}}
+                        whileHover={mounted && !isPro ? { y: -5 } : {}}
                         className="bg-[#f4ece1] rounded-[2.5rem] p-8 flex flex-col justify-between h-[530px] transition-all duration-300"
                         style={{
                             boxShadow: "12px 12px 24px #d9d1c6, -12px -12px 24px #ffffff"
@@ -83,7 +90,7 @@ export default function Pricing() {
 
                             <ul className="mt-8 space-y-4">
                                 <li className="flex items-start gap-3 text-sm font-semibold text-[#2c221e]/80">
-                                    <div 
+                                    <div
                                         className="w-6 h-6 rounded-xl bg-[#f4ece1] flex items-center justify-center shrink-0"
                                         style={{
                                             boxShadow: "inset 3px 3px 6px #d9d1c6, inset -3px -3px 6px #ffffff"
@@ -94,7 +101,7 @@ export default function Pricing() {
                                     <span className="mt-0.5">Apply up to 5 Jobs</span>
                                 </li>
                                 <li className="flex items-start gap-3 text-sm font-semibold text-[#2c221e]/80">
-                                    <div 
+                                    <div
                                         className="w-6 h-6 rounded-xl bg-[#f4ece1] flex items-center justify-center shrink-0"
                                         style={{
                                             boxShadow: "inset 3px 3px 6px #d9d1c6, inset -3px -3px 6px #ffffff"
@@ -107,18 +114,18 @@ export default function Pricing() {
                             </ul>
                         </div>
 
-                        <button 
-                            disabled
+                        <button
+                            disabled={true}
                             className="w-full py-3.5 rounded-xl border border-[#2c221e] bg-transparent text-[#2c221e] font-black text-xs uppercase tracking-widest transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
                         >
-                            {"Your current plan"}
+                            Your current plan
                         </button>
                     </motion.div>
 
                     {/* Pro Monthly - Neumorphic Dark (Highlighted) */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={!isPro ? { y: -15 } : { y: -10 }}
+                        whileHover={mounted && !isPro ? { y: -15 } : { y: -10 }}
                         className="relative bg-[#2c221e] text-[#ebdcc9] rounded-[2.5rem] p-9 flex flex-col justify-between md:scale-105 md:-translate-y-4 z-10 h-[570px] overflow-hidden border border-[rgba(44,34,30,0.1)] transition-all duration-300"
                         style={{
                             boxShadow: "16px 16px 32px rgba(44,34,30,0.3), -12px -12px 28px rgba(255,253,247,0.04)"
@@ -127,8 +134,7 @@ export default function Pricing() {
                         <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full bg-rose-500/10 blur-2xl pointer-events-none" />
 
                         <div>
-                            {/* Neumorphic Dark Badge */}
-                            <div 
+                            <div
                                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#2c221e] text-rose-400 text-[9px] font-black tracking-widest uppercase mb-4"
                                 style={{
                                     boxShadow: "3px 3px 6px #1c1613, -3px -3px 6px #3c2e29"
@@ -152,7 +158,7 @@ export default function Pricing() {
                                     "Smart Interview Reminders"
                                 ].map((feature, idx) => (
                                     <li key={idx} className="flex items-start gap-3 text-sm font-semibold text-[#ebdcc9]/95">
-                                        <div 
+                                        <div
                                             className="w-6 h-6 rounded-xl bg-[#2c221e] flex items-center justify-center shrink-0"
                                             style={{
                                                 boxShadow: "inset 2px 2px 4px #1c1613, inset -2px -2px 4px #3c2e29"
@@ -169,10 +175,10 @@ export default function Pricing() {
                         <form action={'/api/checkout_sessions?type=monthly'} method="POST" onSubmit={handleProPlanClick}>
                             <button
                                 type="submit"
-                                disabled={isPro}
+                                disabled={mounted ? isPro : false}
                                 className="w-full py-4 rounded-xl bg-rose-700 text-white font-black text-xs uppercase tracking-widest transition-all duration-200 hover:bg-rose-800 active:scale-95 shadow-[0_4px_12px_rgba(190,24,74,0.3)] disabled:bg-emerald-700 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
-                                {isPro ? (
+                                {mounted && isPro ? (
                                     <>
                                         <UserCheck size={14} />
                                         Active Pro Member
@@ -187,7 +193,7 @@ export default function Pricing() {
                     {/* Pro Yearly - Neumorphic Light */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={!isPro ? { y: -5 } : {}}
+                        whileHover={mounted && !isPro ? { y: -5 } : {}}
                         className="bg-[#f4ece1] rounded-[2.5rem] p-8 flex flex-col justify-between h-[530px] transition-all duration-300"
                         style={{
                             boxShadow: "12px 12px 24px #d9d1c6, -12px -12px 24px #ffffff"
@@ -218,7 +224,7 @@ export default function Pricing() {
                                     "Priority Candidate Listing"
                                 ].map((feature, idx) => (
                                     <li key={idx} className="flex items-start gap-3 text-sm font-semibold text-[#2c221e]/80">
-                                        <div 
+                                        <div
                                             className="w-6 h-6 rounded-xl bg-[#f4ece1] flex items-center justify-center shrink-0"
                                             style={{
                                                 boxShadow: "inset 3px 3px 6px #d9d1c6, inset -3px -3px 6px #ffffff"
@@ -235,10 +241,10 @@ export default function Pricing() {
                         <form action={'/api/checkout_sessions?type=yearly'} method="POST" onSubmit={handleProPlanClick}>
                             <button
                                 type="submit"
-                                disabled={isPro}
+                                disabled={mounted ? isPro : false}
                                 className="w-full py-3.5 rounded-xl border border-[#2c221e] bg-transparent text-[#2c221e] font-black text-xs uppercase tracking-widest transition-all duration-200 hover:bg-[#2c221e] hover:text-[#ebdcc9] active:scale-95 disabled:bg-emerald-700/10 disabled:text-emerald-800 disabled:border-emerald-700/20 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
-                                {isPro ? (
+                                {mounted && isPro ? (
                                     <>
                                         <UserCheck size={14} />
                                         You are a Pro Member

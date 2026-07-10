@@ -23,11 +23,9 @@ export default function Hero() {
 
     const trendingJobs = ["Software Engineer", "UI/UX Designer", "DevOps Engineer", "QA Engineer", "Data Analyst"];
 
-    // সার্চ হ্যান্ডলার ফাংশন
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchQuery.trim()) {
-            // ইউজারকে কুয়েরি প্যারামিটারসহ /jobs পেজে পাঠাবে
             router.push(`/jobs?search=${encodeURIComponent(searchQuery.trim())}`);
         } else {
             router.push("/jobs");
