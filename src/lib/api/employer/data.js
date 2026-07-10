@@ -1,5 +1,4 @@
-// 'use client'
-// import { authClient } from "@/lib/auth-client";
+
 'use server'
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

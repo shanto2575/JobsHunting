@@ -15,6 +15,7 @@ import { showToast } from "@/Util/toast";
 import InterviewModal from "./InterviewModal";
 import { useState } from "react";
 import HireModal from "./HireModal";
+import { EmployerApplicantsStatus } from "@/lib/api/employer/action";
 
 export default function ApplicantsTable({ applicants, jobId }) {
     const [openInterview, setOpenInterview] = useState(false);
@@ -23,21 +24,7 @@ export default function ApplicantsTable({ applicants, jobId }) {
     const router = useRouter();
 
     const handleStatus = async (userId, status) => {
-        const res = await fetch(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/api/employer/applicants/status`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    jobId,
-                    userId,
-                    status,
-                }),
-            }
-        );
-        const result = await res.json();
+        const result = await EmployerApplicantsStatus(userId, status,jobId)
         if (result.success) {
             showToast.success(result.message);
             router.refresh();
@@ -77,7 +64,7 @@ export default function ApplicantsTable({ applicants, jobId }) {
 
     return (
         <div className="w-full space-y-4">
-            
+
             {/* 1. Mobile & Tablet View: Grid of Cards (Hidden on Desktop) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
                 {applicants.length === 0 ? (
@@ -86,7 +73,7 @@ export default function ApplicantsTable({ applicants, jobId }) {
                     </div>
                 ) : (
                     applicants.map((applicant, index) => (
-                        <div 
+                        <div
                             key={index}
                             className="rounded-2xl border border-[#dfcbaf] bg-white/40 p-5 shadow-sm flex flex-col justify-between gap-4"
                         >

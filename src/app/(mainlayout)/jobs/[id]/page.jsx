@@ -35,7 +35,7 @@ export default function JobDetailsPage({ params }) {
 
                 if (!foundJob || !foundJob._id) {
                     setJob(null);
-                    return; 
+                    return;
                 }
 
                 setJob(foundJob);
@@ -130,7 +130,7 @@ export default function JobDetailsPage({ params }) {
 
                     {/* Left Layout */}
                     <div className="lg:col-span-2 space-y-5">
-                        
+
                         {/* Back Button */}
                         <button
                             onClick={() => router.back()}
@@ -141,7 +141,7 @@ export default function JobDetailsPage({ params }) {
                         </button>
 
                         {/* Combined Card */}
-                        <div 
+                        <div
                             className="rounded-[2.5rem] border border-[#dfcbaf]/70 bg-white/40 backdrop-blur-md p-4 md:p-6 space-y-6"
                             style={{
                                 boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
@@ -169,22 +169,20 @@ export default function JobDetailsPage({ params }) {
                                     <div className="flex items-center gap-3">
                                         <button
                                             onClick={handleBookmark}
-                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${
-                                                isBookmarked
-                                                ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
-                                                : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
-                                            }`}
+                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${isBookmarked
+                                                    ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
+                                                    : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
+                                                }`}
                                         >
                                             <Bookmark size={16} fill={isBookmarked ? "currentColor" : "none"} />
                                         </button>
 
                                         <button
                                             onClick={handleReport}
-                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${
-                                                isReported
-                                                ? "bg-rose-600 text-white border-rose-600"
-                                                : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
-                                            }`}
+                                            className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${isReported
+                                                    ? "bg-rose-600 text-white border-rose-600"
+                                                    : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
+                                                }`}
                                         >
                                             <Flag size={16} fill={isReported ? "currentColor" : "none"} />
                                         </button>
@@ -205,11 +203,10 @@ export default function JobDetailsPage({ params }) {
                                         </h1>
                                     </div>
 
-                                    <span className={`self-start md:self-auto px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border ${
-                                        job.status === "active"
-                                        ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
-                                        : "bg-rose-500/10 text-rose-700 border-rose-500/20"
-                                    }`}>
+                                    <span className={`self-start md:self-auto px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border ${job.status === "active"
+                                            ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+                                            : "bg-rose-500/10 text-rose-700 border-rose-500/20"
+                                        }`}>
                                         ● {job.status}
                                     </span>
                                 </div>
@@ -223,7 +220,7 @@ export default function JobDetailsPage({ params }) {
                                         { icon: <CircleDollarSign size={16} />, label: "Salary Pack", val: `৳ ${job.salary?.toLocaleString()}` }
                                     ].map((stat, idx) => (
                                         <div key={idx} className="flex flex-col gap-1 bg-[#2c221e]/5 p-4 rounded-2xl border border-[#dfcbaf]/20"
-                                             style={{ boxShadow: "inset 4px 4px 8px #d9d1c6, inset -4px -4px 8px #ffffff" }}>
+                                            style={{ boxShadow: "inset 4px 4px 8px #d9d1c6, inset -4px -4px 8px #ffffff" }}>
                                             <span className="text-rose-600">{stat.icon}</span>
                                             <span className="text-[10px] font-bold uppercase text-[#4a3b35]/70 mt-1">{stat.label}</span>
                                             <span className="text-xs font-extrabold text-[#2c221e] tracking-tight">{stat.val}</span>
@@ -237,7 +234,7 @@ export default function JobDetailsPage({ params }) {
                                         Job Description
                                     </h2>
                                     <p className="text-[#2c221e]/80 text-sm leading-relaxed font-semibold whitespace-pre-line bg-[#f4ece1]/30 p-5 rounded-2xl border border-[#dfcbaf]/20"
-                                       style={{ boxShadow: "inset 4px 4px 9px #d9d1c6, inset -4px -4px 9px #ffffff" }}>
+                                        style={{ boxShadow: "inset 4px 4px 9px #d9d1c6, inset -4px -4px 9px #ffffff" }}>
                                         {job.description}
                                     </p>
                                 </div>
@@ -267,9 +264,9 @@ export default function JobDetailsPage({ params }) {
 
                     {/* Right Layout Sidebar */}
                     <div className="space-y-6 lg:sticky lg:top-8 lg:mt-14">
-                        
+
                         {/* Ready to Apply Action Area */}
-                        <div 
+                        <div
                             className="rounded-[2.5rem] border border-[#dfcbaf] bg-white/40 p-6 flex flex-col items-center text-center relative overflow-hidden"
                             style={{
                                 boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
@@ -286,7 +283,7 @@ export default function JobDetailsPage({ params }) {
                         </div>
 
                         {/* Insights Table */}
-                        <div 
+                        <div
                             className="rounded-[2.5rem] border border-[#dfcbaf]/70 bg-white/50 backdrop-blur-md p-6 space-y-4"
                             style={{
                                 boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"

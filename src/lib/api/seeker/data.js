@@ -30,7 +30,7 @@ export const GetJobById = async (id) => {
 
 
 export const AppliedJobs=async(email)=>{
-    console.log(email,'email applied')
+    // console.log(email,'email applied')
     const data=await serverFetch(`/api/seeker/applied-jobs/${email}`)
     console.log(data,'data applied')
     return data;

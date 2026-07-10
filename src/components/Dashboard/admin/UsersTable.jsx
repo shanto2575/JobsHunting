@@ -23,10 +23,10 @@ export default function UsersTable({ users }) {
 
         const data = await BlockAccount(id, newStatus);
         if (data.success) {
-            showToast.success(data.message);
+            showToast.success(data.message || 'Block Successful');
             router.refresh();
         } else {
-            showToast.error(data.message);
+            showToast.error(data.message || 'Block Failed');
         }
     };
 
