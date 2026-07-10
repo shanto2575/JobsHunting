@@ -13,8 +13,9 @@ import { EmployProfile } from "@/lib/api/employer/data";
 
 export default async function DashboardOverviewCard() {
     const user = await getUser();
-    const isPro = user?.plan === "pro";
-    const data = await EmployProfile(user.email);
+    // console.log(user)
+    const data = await EmployProfile(user?.email);
+    const isPro = data.result.plan === "pro";
     // console.log(data)
 
     return (
@@ -24,7 +25,7 @@ export default async function DashboardOverviewCard() {
             {/* Top Section: Profile Info & Action */}
             <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center justify-between pb-6 border-b border-[#ebdcc9]/50">
                 <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center w-full">
-                    
+
                     {/* Profile Image with Theme Inset Frame */}
                     <div className="relative group shrink-0">
                         <div className={`absolute inset-0 rounded-2xl blur-sm opacity-20 transition-opacity group-hover:opacity-40 ${isPro ? "bg-gradient-to-tr from-amber-400 to-yellow-600" : "bg-[#2c221e]"}`} />

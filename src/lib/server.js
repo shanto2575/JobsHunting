@@ -1,10 +1,11 @@
 import { baseUrl } from "./baseUrl"
 
-export const serverMutation = async (path, method, data) => {
+export const serverMutation = async (path, method, data, token) => {
     const res = await fetch(`${baseUrl}${path}`, {
         method: method,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })

@@ -18,31 +18,59 @@ import { useEffect, useState } from "react";
 import { getSeekerProfile } from "@/lib/api/seeker/data";
 
 export default function DashboardOverviewCard() {
-    const { data: session } = authClient.useSession();
-    const user = session?.user;
+    const { data: session, isPending } = authClient.useSession();
+
+    const [mounted, setMounted] = useState(false);
 
     const [profile, setProfile] = useState({
         appliedJobs: 0,
         savedJobs: 0,
         interviews: 0,
-        resume: false,
+        resume: null,
+        plan: "free"
     });
 
     useEffect(() => {
-        if (!user?.email) return;
+        setMounted(true);
+    }, []);
 
-        async function loadProfile() {
-            const data = await getSeekerProfile(user.email);
+    useEffect(() => {
+        if (!session?.user?.email) return;
 
-            if (data.success) {
-                setProfile(data);
+        const loadProfile = async () => {
+            try {
+                const res = await getSeekerProfile(session.user.email);
+
+                if (res?.success) {
+                    setProfile({
+                        appliedJobs: res.appliedJobs,
+                        savedJobs: res.savedJobs,
+                        interviews: res.interviews,
+                        resume: res.resume,
+                        plan: res.plan,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
             }
-        }
+        };
 
         loadProfile();
-    }, [user]);
+    }, [session?.user?.email]);
+    //   console.log(res,'reslll')
 
-    console.log(profile,';;')
+    if (!mounted || isPending) {
+        return (
+            <div className="w-full rounded-3xl bg-[#f4ece1] p-8 animate-pulse h-[500px]" />
+        );
+    }
+
+    const user = session?.user;
+    // console.log(user)
+
+    if (!user) {
+        return null;
+    }
 
     return (
         /* Main Container: Premium Soft Neumorphic Card with 0.1 shadow intensity */
@@ -93,10 +121,10 @@ export default function DashboardOverviewCard() {
                                     }`}
                             >
                                 <Crown size={14} />
-                                {user?.plan}
+                                {profile.plan}
                             </span>
 
-                            <span
+                            {/* <span
                                 className={`px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 shadow-[2px_2px_5px_rgba(44,34,30,0.05)] ${user?.emailVerified
                                     ? "bg-green-100 text-green-700"
                                     : "bg-red-100 text-red-700"
@@ -108,7 +136,7 @@ export default function DashboardOverviewCard() {
                                     <XCircle size={14} />
                                 )}
                                 {user?.emailVerified ? "Verified" : "Not Verified"}
-                            </span>
+                            </span> */}
                         </div>
                     </div>
                 </div>
@@ -180,7 +208,7 @@ export default function DashboardOverviewCard() {
 
             {/* Plan Section */}
             <div className="mt-8 rounded-[2rem] border border-[#dfcbaf] p-1 bg-[#2c221e] shadow-[8px_8px_25px_rgba(44,34,30,0.12)]">
-                {user?.plan === "free" ? (
+                {profile.plan === 'free' ? (
                     <div className="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                         <div className="space-y-1.5">
                             <h3 className="text-2xl font-black text-[#ebdcc9] tracking-tight">

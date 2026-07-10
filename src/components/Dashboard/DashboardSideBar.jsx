@@ -240,12 +240,14 @@ export default function DashboardSideBar() {
                         </Link>
 
                         <div className="mt-4 bg-white/50 w-full rounded-xl p-2  flex items-center gap-1 ">
-
-                            {/* Left Image */}
                             <Image
-                                src={user?.image || "/user.jpg"}
-                                width={300}
-                                height={300}
+                                src={
+                                    user?.image && user.image.startsWith("http")
+                                        ? user.image
+                                        : "/user.jpg"
+                                }
+                                width={56}
+                                height={56}
                                 alt="Profile"
                                 className="w-14 h-14 rounded-full object-cover border border-[#dfcbaf]"
                             />

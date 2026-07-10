@@ -113,7 +113,7 @@ export default async function Success({ searchParams }) {
 
                                         <Crown size={16} />
 
-                                        Premium
+                                        Pro
 
                                     </span>
 
