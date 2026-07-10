@@ -15,6 +15,7 @@ import { authClient } from "@/lib/auth-client";
 import { BookMark, Report } from "@/lib/api/seeker/action";
 import { showToast } from "@/Util/toast";
 import NotFound from "./not-found";
+import Loading from "../../loading";
 
 export default function JobDetailsPage({ params }) {
     const [job, setJob] = useState(null);
@@ -23,10 +24,11 @@ export default function JobDetailsPage({ params }) {
     const [isReported, setIsReported] = useState(false);
     const router = useRouter();
 
-    const { data: session } = authClient.useSession();
+    const { data: session, isPending } = authClient.useSession();
     const user = session?.user;
 
     useEffect(() => {
+        if (isPending) return;
         async function fetchJobData() {
             try {
                 const resolvedParams = await params;
@@ -72,10 +74,10 @@ export default function JobDetailsPage({ params }) {
         } else {
             setLoading(false);
         }
-    }, [params, user]);
+    }, [params, user, isPending]);
 
-    if (loading) {
-        return <Loader />;
+    if (isPending || loading) {
+        return <Loading />;
     }
 
     if (!job || !job._id) {
@@ -170,8 +172,8 @@ export default function JobDetailsPage({ params }) {
                                         <button
                                             onClick={handleBookmark}
                                             className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${isBookmarked
-                                                    ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
-                                                    : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
+                                                ? "bg-[#ebdcc9] text-[#2c221e] border-[#ebdcc9]"
+                                                : "bg-[#2c221e]/40 text-white border-white/20 hover:bg-[#2c221e]/60"
                                                 }`}
                                         >
                                             <Bookmark size={16} fill={isBookmarked ? "currentColor" : "none"} />
@@ -180,8 +182,8 @@ export default function JobDetailsPage({ params }) {
                                         <button
                                             onClick={handleReport}
                                             className={`flex items-center justify-center p-3 rounded-xl border backdrop-blur-md shadow-[4px_4px_10px_rgba(0,0,0,0.15)] transition-all duration-300 active:scale-95 cursor-pointer ${isReported
-                                                    ? "bg-rose-600 text-white border-rose-600"
-                                                    : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
+                                                ? "bg-rose-600 text-white border-rose-600"
+                                                : "bg-[#2c221e]/40 text-rose-400 border-white/20 hover:bg-rose-500/20 hover:text-rose-300"
                                                 }`}
                                         >
                                             <Flag size={16} fill={isReported ? "currentColor" : "none"} />
@@ -204,8 +206,8 @@ export default function JobDetailsPage({ params }) {
                                     </div>
 
                                     <span className={`self-start md:self-auto px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider border ${job.status === "active"
-                                            ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
-                                            : "bg-rose-500/10 text-rose-700 border-rose-500/20"
+                                        ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+                                        : "bg-rose-500/10 text-rose-700 border-rose-500/20"
                                         }`}>
                                         ● {job.status}
                                     </span>

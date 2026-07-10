@@ -3,7 +3,7 @@ import { BlockData } from "@/lib/api/admin/data";
 
 const BlockUserPage = async () => {
     const block = await BlockData();
-    console.log(block)
+    // console.log(block)
 
     return (
         <div className="p-6 space-y-6">

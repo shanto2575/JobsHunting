@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { getUser } from "@/lib/session";
 import { EmployProfile } from "@/lib/api/employer/data";
+import { EditsProfile } from "../EditsProfile";
 
 export default async function DashboardOverviewCard() {
     const user = await getUser();
@@ -74,12 +75,9 @@ export default async function DashboardOverviewCard() {
                 </div>
 
                 {/* Edit Profile Button - Soft Neumorphic Action */}
-                <Link
-                    href="/dashboard/profile/edit"
-                    className="w-full lg:w-auto text-center px-6 py-3.5 rounded-2xl bg-[#ded1c0] text-[#2c221e] font-black text-xs uppercase tracking-wider shadow-[3px_3px_6px_rgba(207,200,191,0.4),-3px_-3px_6px_#ffffff] hover:shadow-[inset_3px_3px_5px_rgba(207,200,191,0.4),inset_-3px_-3px_5px_#ffffff] active:scale-95 transition-all duration-200 border border-[#ebdcc9]/20"
-                >
-                    Edit Profile
-                </Link>
+                <div>
+                    <EditsProfile user={user} />
+                </div>
             </div>
 
             {/* Middle Section: Stats Cards styled with Cream/Brown tones */}

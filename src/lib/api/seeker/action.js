@@ -18,3 +18,8 @@ export const Report = async (report) => {
     const res = await serverMutation(`/api/report-jobs`, 'POST', report, token)
     return res;
 }
+
+export const EditsProfiles = async (id, data) => {
+    const res = await serverMutation(`/api/Edits-Profile/${id}`, 'PATCH', data)
+    return res;
+}

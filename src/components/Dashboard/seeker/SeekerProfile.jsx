@@ -16,6 +16,8 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { getSeekerProfile } from "@/lib/api/seeker/data";
+import { Button } from "@heroui/react";
+import { EditsProfile } from "../EditsProfile";
 
 export default function DashboardOverviewCard() {
     const { data: session, isPending } = authClient.useSession();
@@ -142,12 +144,9 @@ export default function DashboardOverviewCard() {
                 </div>
 
                 {/* Edit Button with Elevated Premium Shadow */}
-                <Link
-                    href="/dashboard/profile/edit"
-                    className="px-6 py-3 rounded-xl bg-[#2c221e] text-[#ebdcc9] font-black text-xs uppercase tracking-wider shadow-[4px_4px_12px_rgba(44,34,30,0.15)] hover:opacity-90 transition-all duration-300 hover:scale-[1.02] self-stretch sm:self-auto text-center"
-                >
-                    Edit Profile
-                </Link>
+                <div>
+                    <EditsProfile user={user}/>
+                </div>
             </div>
 
             {/* Stats Grid: Soft Flat Neumorphic Panels */}

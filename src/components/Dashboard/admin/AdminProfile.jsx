@@ -16,7 +16,7 @@ import { AdminProfile } from "@/lib/api/admin/data";
 export default async function AdminDashboardOverviewCard() {
     const user = await getUser();
 const data = await AdminProfile();
-    console.log(data)
+    // console.log(data)
 
     return (
         /* Outer Card: Theme based bg [#f4ece1] with soft blended shadows */

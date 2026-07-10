@@ -31,7 +31,7 @@ export async function POST() {
             automatic_tax: { enabled: true },
         });
         return NextResponse.redirect(session.url, 303)
-        console.log(session,'session')
+        // console.log(session,'session')
     } catch (err) {
         return NextResponse.json(
             { error: err.message },
