@@ -18,14 +18,15 @@ export function EditsProfile({ user }) {
     } = useForm({
         defaultValues: {
             name: user?.name || "",
+            email: user?.email || "",
             image: user?.image || "",
         },
     });
 
     const onSubmit = async (data) => {
-        // console.log(data);
+        console.log(data);
         const result = await EditsProfiles(user.id, data);
-        // console.log(result);
+        console.log(result);
         
         if (result.success) {
             await authClient.getSession({
@@ -123,7 +124,7 @@ export function EditsProfile({ user }) {
                                         {/* Save Button (Dark Brown Accent) */}
                                         <Button
                                             type="submit"
-                                            slot={'close'}
+                                            slot={ "close"}
                                             isDisabled={isSubmitting}
                                             className="px-6 py-3 rounded-xl bg-[#2c221e] text-[#ebdcc9] font-black text-xs uppercase tracking-wider shadow-[3px_3px_8px_rgba(44,34,30,0.2)] hover:bg-[#3d302a] active:scale-95 disabled:opacity-50 transition-all duration-200"
                                         >
