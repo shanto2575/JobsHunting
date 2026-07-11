@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { X, Calendar, Clock3, Link2, MapPin, FileText } from "lucide-react";
 import { showToast } from "@/Util/toast";
 import { useRouter } from "next/navigation";
+import { baseUrl } from "@/lib/baseUrl";
 
 export default function InterviewModal({
     open,
@@ -56,7 +57,7 @@ export default function InterviewModal({
 
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/employer/applicants/status`,
+                `${baseUrl}/api/employer/applicants/status`,
                 {
                     method: "PATCH",
                     headers: {
@@ -78,7 +79,7 @@ export default function InterviewModal({
                 setOpen(false);
                 router.refresh();
             } else {
-                showToast.error(result.message);
+                showToast.error(result.message || 'Failed Interview Scheduled');
             }
         } catch (error) {
             console.log(error);

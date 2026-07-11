@@ -1,5 +1,6 @@
 'use server'
 import { auth } from "@/lib/auth";
+import { baseUrl } from "@/lib/baseUrl";
 import { serverMutation } from "@/lib/server";
 import { headers } from "next/headers";
 
@@ -12,25 +13,19 @@ export const AddJobs = async (jobs) => {
 }
 
 export const UpdatedJobs = async (data, id) => {
-
     const { token } = await auth.api.getToken({
         headers: await headers()
     })
     const res = await serverMutation(`/api/employer/postedjob/${id}`, 'PATCH', data, token);
     return res;
 }
-
 export const EmployerApplicantsStatus = async (userId, status, jobId) => {
-    const { token } = await auth.api.getToken({
-        headers: await headers()
-    })
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/employer/applicants/status`,
+        `${baseUrl}/api/employer/applicants/status`,
         {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                authorization: `Bearer ${token}`
             },
             body: JSON.stringify({
                 jobId,
@@ -42,4 +37,5 @@ export const EmployerApplicantsStatus = async (userId, status, jobId) => {
     const result = await res.json();
     return result;
 }
+
 

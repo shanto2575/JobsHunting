@@ -1,36 +1,49 @@
 "use client";
 
-import Link from "next/link";
 import {
-    FileText,
-    Download,
     Calendar,
-    User,
+    Download,
     Mail,
-    CheckCircle2,
-    XCircle,
+    User
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { showToast } from "@/Util/toast";
-import InterviewModal from "./InterviewModal";
 import { useState } from "react";
-import HireModal from "./HireModal";
 import { EmployerApplicantsStatus } from "@/lib/api/employer/action";
+import { showToast } from "@/Util/toast";
+import HireModal from "./HireModal";
+import InterviewModal from "./InterviewModal";
 
-export default function ApplicantsTable({ applicants, jobId }) {
-    const [openInterview, setOpenInterview] = useState(false);
+export default function ApplicantsTable({ applicants = [], jobId }) {
+    const [modalType, setModalType] = useState(null);
     const [selectedApplicant, setSelectedApplicant] = useState(null);
-    const [openHire, setOpenHire] = useState(false);
     const router = useRouter();
 
-    const handleStatus = async (userId, status) => {
-        const result = await EmployerApplicantsStatus(userId, status,jobId)
+    const handleStatusChange = async (userId, status) => {
+        const result = await EmployerApplicantsStatus(userId, status, jobId);
         if (result.success) {
             showToast.success(result.message);
             router.refresh();
         } else {
             showToast.error(result.message);
         }
+    };
+
+    const handleSelectChange = (e, applicant) => {
+        const status = e.target.value;
+        if (status === "Interview") {
+            setSelectedApplicant(applicant);
+            setModalType("interview");
+        } else if (status === "Hired") {
+            setSelectedApplicant(applicant);
+            setModalType("hire");
+        } else {
+            handleStatusChange(applicant.userId, status);
+        }
+    };
+
+    const closeModal = () => {
+        setModalType(null);
+        setSelectedApplicant(null);
     };
 
     const statusStyles = {
@@ -64,20 +77,18 @@ export default function ApplicantsTable({ applicants, jobId }) {
 
     return (
         <div className="w-full space-y-4">
-
-            {/* 1. Mobile & Tablet View: Grid of Cards (Hidden on Desktop) */}
+            {/* 1. Mobile & Tablet View: Grid of Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
                 {applicants.length === 0 ? (
                     <div className="col-span-full py-16 text-center text-sm font-medium text-gray-500 bg-white/40 rounded-2xl border border-[#dfcbaf]">
                         No Applicants Found
                     </div>
                 ) : (
-                    applicants.map((applicant, index) => (
+                    applicants.map((applicant) => (
                         <div
-                            key={index}
+                            key={applicant.userId}
                             className="rounded-2xl border border-[#dfcbaf] bg-white/40 p-5 shadow-sm flex flex-col justify-between gap-4"
                         >
-                            {/* Header: Profile and Status Badge */}
                             <div className="flex items-start justify-between gap-2">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 rounded-full bg-[#ebdcc9] flex items-center justify-center shrink-0">
@@ -87,9 +98,7 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                         <h3 className="font-semibold text-[#2c221e] text-base leading-tight">
                                             {applicant.name}
                                         </h3>
-                                        <p className="text-xs text-gray-500 mt-0.5">
-                                            Job Applicant
-                                        </p>
+                                        <p className="text-xs text-gray-500 mt-0.5">Job Applicant</p>
                                     </div>
                                 </div>
                                 <span className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border ${statusStyles[applicant.status || "Pending"]?.badge}`}>
@@ -97,7 +106,6 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                 </span>
                             </div>
 
-                            {/* Details: Email & Applied Date */}
                             <div className="space-y-2 pt-2 border-t border-[#dfcbaf]/20 text-sm text-[#2c221e]/80">
                                 <div className="flex items-center gap-2 text-gray-600">
                                     <Mail size={15} className="shrink-0" />
@@ -109,7 +117,6 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                 </div>
                             </div>
 
-                            {/* CV Links Section */}
                             <div className="flex items-center gap-2 bg-[#faf6f0]/60 p-2 rounded-xl border border-[#dfcbaf]/30">
                                 <a
                                     href={applicant.cv}
@@ -127,23 +134,12 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                 </a>
                             </div>
 
-                            {/* Action: Dropdown Select */}
                             <div className="pt-2 border-t border-[#dfcbaf]/10 flex flex-col gap-1.5">
                                 <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Change Status</label>
                                 <select
+                                    key={`${applicant.status || "Pending"}-${modalType || "closed"}`}
                                     value={applicant.status || "Pending"}
-                                    onChange={(e) => {
-                                        const status = e.target.value;
-                                        if (status === "Interview") {
-                                            setSelectedApplicant(applicant);
-                                            setOpenInterview(true);
-                                        } else if (status === "Hired") {
-                                            setSelectedApplicant(applicant);
-                                            setOpenHire(true);
-                                        } else {
-                                            handleStatus(applicant.userId, status);
-                                        }
-                                    }}
+                                    onChange={(e) => handleSelectChange(e, applicant)}
                                     className={`w-full rounded-lg px-3 py-2 text-sm font-medium border outline-none cursor-pointer shadow-sm ${statusStyles[applicant.status || "Pending"]?.select}`}
                                 >
                                     <option value="Pending">Pending</option>
@@ -158,7 +154,7 @@ export default function ApplicantsTable({ applicants, jobId }) {
                 )}
             </div>
 
-            {/* 2. Desktop View: Traditional Table (Hidden on Mobile/Tablet) */}
+            {/* 2. Desktop View: Traditional Table */}
             <div className="hidden lg:block overflow-hidden rounded-2xl border border-[#dfcbaf] bg-white/40 shadow-sm">
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -176,20 +172,13 @@ export default function ApplicantsTable({ applicants, jobId }) {
                         <tbody className="divide-y divide-[#dfcbaf]/30">
                             {applicants.length === 0 ? (
                                 <tr>
-                                    <td
-                                        colSpan={6}
-                                        className="py-16 text-center text-gray-500"
-                                    >
+                                    <td colSpan={6} className="py-16 text-center text-gray-500">
                                         No Applicants Found
                                     </td>
                                 </tr>
                             ) : (
-                                applicants.map((applicant, index) => (
-                                    <tr
-                                        key={index}
-                                        className="hover:bg-[#faf6f0] transition"
-                                    >
-                                        {/* Applicant */}
+                                applicants.map((applicant) => (
+                                    <tr key={applicant.userId} className="hover:bg-[#faf6f0] transition">
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 rounded-full bg-[#ebdcc9] flex items-center justify-center">
@@ -199,14 +188,11 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                                     <h3 className="font-semibold text-[#2c221e]">
                                                         {applicant.name}
                                                     </h3>
-                                                    <p className="text-xs text-gray-500">
-                                                        Job Applicant
-                                                    </p>
+                                                    <p className="text-xs text-gray-500">Job Applicant</p>
                                                 </div>
                                             </div>
                                         </td>
 
-                                        {/* Email */}
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-2 text-sm">
                                                 <Mail size={16} />
@@ -214,7 +200,6 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                             </div>
                                         </td>
 
-                                        {/* Applied Date */}
                                         <td className="px-6 py-5 text-center">
                                             <div className="flex justify-center items-center gap-2 text-sm">
                                                 <Calendar size={15} />
@@ -222,14 +207,12 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                             </div>
                                         </td>
 
-                                        {/* Status */}
                                         <td className="px-6 py-5 text-center">
                                             <span className={`px-3 py-1 rounded-full text-xs font-semibold ${statusStyles[applicant.status || "Pending"]?.badge}`}>
                                                 {applicant.status || "Pending"}
                                             </span>
                                         </td>
 
-                                        {/* CV */}
                                         <td className="px-6 py-5">
                                             <div className="flex justify-center gap-2 text-xs font-medium">
                                                 <a
@@ -249,23 +232,12 @@ export default function ApplicantsTable({ applicants, jobId }) {
                                             </div>
                                         </td>
 
-                                        {/* Actions */}
                                         <td className="px-6 py-5">
                                             <div className="flex justify-center gap-2">
                                                 <select
+                                                    key={`${applicant.status || "Pending"}-${modalType || "closed"}`}
                                                     value={applicant.status || "Pending"}
-                                                    onChange={(e) => {
-                                                        const status = e.target.value;
-                                                        if (status === "Interview") {
-                                                            setSelectedApplicant(applicant);
-                                                            setOpenInterview(true);
-                                                        } else if (status === "Hired") {
-                                                            setSelectedApplicant(applicant);
-                                                            setOpenHire(true);
-                                                        } else {
-                                                            handleStatus(applicant.userId, status);
-                                                        }
-                                                    }}
+                                                    onChange={(e) => handleSelectChange(e, applicant)}
                                                     className={`rounded-lg px-3 py-2 text-sm font-medium border outline-none cursor-pointer shadow-sm ${statusStyles[applicant.status || "Pending"]?.select}`}
                                                 >
                                                     <option value="Pending">Pending</option>
@@ -284,19 +256,23 @@ export default function ApplicantsTable({ applicants, jobId }) {
                 </div>
             </div>
 
-            {/* Modals */}
-            <InterviewModal
-                open={openInterview}
-                setOpen={setOpenInterview}
-                applicant={selectedApplicant}
-                jobId={jobId}
-            />
-            <HireModal
-                open={openHire}
-                setOpen={setOpenHire}
-                applicant={selectedApplicant}
-                jobId={jobId}
-            />
+            {modalType === "interview" && (
+                <InterviewModal
+                    open={true}
+                    applicant={selectedApplicant}
+                    jobId={jobId}
+                    setOpen={closeModal}
+                />
+            )}
+
+            {modalType === "hire" && (
+                <HireModal
+                    open={true}
+                    applicant={selectedApplicant}
+                    jobId={jobId}
+                    setOpen={closeModal}
+                />
+            )}
         </div>
     );
 }

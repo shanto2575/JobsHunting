@@ -4,6 +4,7 @@ import { useState } from "react";
 import { X, Calendar, Clock, DollarSign, MapPin, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { showToast } from "@/Util/toast";
+import { baseUrl } from "@/lib/baseUrl";
 
 export default function HireModal({
     open,
@@ -40,7 +41,7 @@ export default function HireModal({
 
         try {
             const res = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_URL}/api/employer/applicants/status`,
+                `${baseUrl}/api/employer/applicants/status`,
                 {
                     method: "PATCH",
                     headers: {
@@ -61,6 +62,8 @@ export default function HireModal({
                 showToast.success("Candidate hired successfully");
                 setOpen(false);
                 router.refresh();
+            }else{
+                showToast.error('failed hired')
             }
         } catch (err) {
             showToast.error("Something went wrong");
