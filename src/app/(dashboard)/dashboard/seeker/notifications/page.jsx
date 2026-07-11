@@ -15,6 +15,7 @@ import {
     DollarSign,
     ExternalLink
 } from "lucide-react";
+import NoNotifications from "@/components/Dashboard/seeker/NoNotifications";
 
 export default function NotificationsPage() {
     const { data: session } = authClient.useSession();
@@ -60,12 +61,7 @@ export default function NotificationsPage() {
 
             {notifications.length === 0 ? (
                 /* Empty State with Soft Shadow ~0.1 */
-                <div className="text-center py-20 rounded-[2.5rem] bg-[#f4ece1] border border-[#ebdcc9]/40 shadow-[10px_10px_30px_rgba(44,34,30,0.06),-10px_-10px_30px_rgba(255,255,255,0.8)]">
-                    <Bell size={44} className="mx-auto mb-4 text-[#2c221e]/30" />
-                    <p className="font-black text-lg text-[#2c221e]/60">
-                        No notifications yet.
-                    </p>
-                </div>
+                <NoNotifications />
             ) : (
                 <div className="space-y-6">
                     {notifications.map((item) => (
@@ -92,13 +88,12 @@ export default function NotificationsPage() {
                                             {item.message}
                                         </p>
 
-                                        {/* ================= INTERVIEW DETAILS CARD (PREMIUM PURPLE STYLE) ================= */}
                                         {item.status === "Interview" && item.interview && (
                                             <div className="mt-6 rounded-2xl border border-purple-500/20 bg-gradient-to-br from-purple-50/70 to-purple-100/30 p-5 md:p-6 shadow-[4px_4px_15px_rgba(147,51,234,0.04)] relative overflow-hidden">
                                                 <div className="absolute top-0 right-0 p-3 text-purple-200 pointer-events-none">
                                                     <Calendar size={64} className="opacity-15" />
                                                 </div>
-                                                
+
                                                 <h3 className="font-black text-purple-900 flex items-center gap-2 text-xs uppercase tracking-widest mb-4">
                                                     <span className="w-1.5 h-3 bg-purple-600 rounded-full inline-block"></span>
                                                     Interview Schedule
@@ -158,7 +153,6 @@ export default function NotificationsPage() {
                                             </div>
                                         )}
 
-                                        {/* ================= HIRED DETAILS CARD (PREMIUM EMERALD STYLE) ================= */}
                                         {item.status === "Hired" && item.hiring && (
                                             <div className="mt-6 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-50/70 to-emerald-100/30 p-5 md:p-6 shadow-[4px_4px_15px_rgba(16,185,129,0.04)] relative overflow-hidden">
                                                 <div className="absolute top-0 right-0 p-3 text-emerald-200 pointer-events-none">

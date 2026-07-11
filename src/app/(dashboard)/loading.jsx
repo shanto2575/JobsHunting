@@ -6,9 +6,9 @@ export default function DashboardLoading() {
     return (
         <div className="min-h-screen bg-[#f4ece1] flex flex-col items-center justify-center p-4 antialiased">
             <div className="relative flex flex-col items-center">
-                
+
                 {/* Center Core Spinner - Premium Glassmorph Matrix */}
-                <div 
+                <div
                     className="w-24 h-24 rounded-[2rem] bg-white/40 border border-[#dfcbaf] flex items-center justify-center relative overflow-hidden"
                     style={{
                         boxShadow: "14px 14px 28px #d9d1c6, -14px -14px 28px #ffffff"
@@ -17,7 +17,7 @@ export default function DashboardLoading() {
                     {/* Rotating Border Ripple */}
                     <div className="absolute inset-1.5 rounded-[1.6rem] border-2 border-dashed border-[#2c221e]/20 animate-[spin_20s_linear_infinite]" />
                     <div className="absolute inset-0 rounded-[2rem] border-2 border-[#2c221e] border-t-transparent border-r-transparent animate-[spin_1.2s_cubic-bezier(0.4,0,0.2,1)_infinite]" />
-                    
+
                     {/* Center Icon */}
                     <div className="relative text-[#2c221e] z-10 animate-pulse">
                         <LayoutDashboard size={32} />
@@ -35,20 +35,17 @@ export default function DashboardLoading() {
                 {/* Status Typography */}
                 <div className="text-center mt-8 space-y-2">
                     <h3 className="text-[#2c221e] text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                        Initializing Matrix
+                        Loading
                     </h3>
-                    
+
                     {/* Progress Bar (Inset Neumorphic Track) */}
-                    <div 
+                    <div
                         className="w-40 h-1.5 bg-[#2c221e]/5 rounded-full border border-[#dfcbaf]/20 overflow-hidden p-[1px] mx-auto"
                         style={{ boxShadow: "inset 2px 2px 4px #d9d1c6, inset -2px -2px 4px #ffffff" }}
                     >
                         <div className="h-full bg-gradient-to-r from-[#2c221e] to-rose-700 rounded-full w-full animate-[loadingBar_2s_ease-in-out_infinite] origin-left" />
                     </div>
-                    
-                    <p className="text-[10px] font-bold text-[#4a3b35]/60 uppercase tracking-wider">
-                        Securing dashboard session...
-                    </p>
+
                 </div>
 
             </div>

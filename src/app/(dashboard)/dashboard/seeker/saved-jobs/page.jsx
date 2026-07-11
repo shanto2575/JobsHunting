@@ -10,6 +10,7 @@ import {
 
 import { GetBookmarks } from "@/lib/api/seeker/data";
 import { getUser } from "@/lib/session";
+import NoSavedJobs from "@/components/Dashboard/seeker/NoSavedJobs";
 
 const SaveJobsPage = async () => {
     const user = await getUser();
@@ -35,19 +36,7 @@ const SaveJobsPage = async () => {
 
             {/* Empty */}
             {bookmarks?.result?.length === 0 ? (
-                <div className="rounded-3xl border border-dashed border-[#dfcbaf] bg-white/60 p-16 text-center">
-                    <Bookmark
-                        size={60}
-                        className="mx-auto text-[#c8b397]"
-                    />
-                    <h2 className="mt-5 text-2xl font-bold text-[#2c221e]">
-                        No Saved Jobs
-                    </h2>
-
-                    <p className="mt-2 text-[#6b5b52]">
-                        Bookmark jobs to view them here later.
-                    </p>
-                </div>
+                <NoSavedJobs />
             ) : (
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {bookmarks.result.map((job) => (

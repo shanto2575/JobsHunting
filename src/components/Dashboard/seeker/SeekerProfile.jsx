@@ -13,63 +13,9 @@ import {
     FileText,
     CalendarCheck,
 } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
-import { useEffect, useState } from "react";
-import { getSeekerProfile } from "@/lib/api/seeker/data";
-import { Button } from "@heroui/react";
 import { EditsProfile } from "../EditsProfile";
 
-export default function DashboardOverviewCard() {
-    const { data: session, isPending } = authClient.useSession();
-
-    const [mounted, setMounted] = useState(false);
-
-    const [profile, setProfile] = useState({
-        appliedJobs: 0,
-        savedJobs: 0,
-        interviews: 0,
-        resume: null,
-        plan: "free"
-    });
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!session?.user?.email) return;
-
-        const loadProfile = async () => {
-            try {
-                const res = await getSeekerProfile(session.user.email);
-
-                if (res?.success) {
-                    setProfile({
-                        appliedJobs: res.appliedJobs,
-                        savedJobs: res.savedJobs,
-                        interviews: res.interviews,
-                        resume: res.resume,
-                        plan: res.plan,
-                    });
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        loadProfile();
-    }, [session?.user?.email]);
-    //   console.log(res,'reslll')
-
-    if (!mounted || isPending) {
-        return (
-            <div className="w-full rounded-3xl bg-[#f4ece1] p-8 animate-pulse h-[500px]" />
-        );
-    }
-
-    const user = session?.user;
-    // console.log(user)
-
+export default function DashboardOverviewCard({user,profile}) {
     if (!user) {
         return null;
     }

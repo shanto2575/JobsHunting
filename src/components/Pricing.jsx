@@ -1,5 +1,6 @@
 "use client";
 
+import { getSeekerProfile } from "@/lib/api/seeker/data";
 import { authClient } from "@/lib/auth-client";
 import { motion } from "framer-motion";
 import { Check, Sparkles, UserCheck } from "lucide-react";
@@ -11,13 +12,23 @@ export default function Pricing() {
     const router = useRouter();
     const user = session?.user;
 
-    const [mounted, setMounted] = useState(false); 
+    const [mounted, setMounted] = useState(false);
+
+    const [plan, setPlan] = useState("free");
 
     useEffect(() => {
-        setMounted(true);
-    }, []);
+    if (!session?.user?.email) return;
 
-    const isPro = user?.role === "pro" || user?.plan === "pro";
+    getSeekerProfile(session.user.email).then((res) => {
+        // console.log(res); 
+
+        if (res.success) {
+            setPlan(res.plan);
+        }
+    });
+}, [session]);
+    const isPro = plan === "pro";
+    // console.log(isPro,'pro')
 
     const handleProPlanClick = (e) => {
         if (!user) {
@@ -72,7 +83,7 @@ export default function Pricing() {
                     {/* Free Plan - Neumorphic Light */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={mounted && !isPro ? { y: -5 } : {}}
+                        disabled={isPro }
                         className="bg-[#f4ece1] rounded-[2.5rem] p-8 flex flex-col justify-between h-[530px] transition-all duration-300"
                         style={{
                             boxShadow: "12px 12px 24px #d9d1c6, -12px -12px 24px #ffffff"
@@ -125,7 +136,7 @@ export default function Pricing() {
                     {/* Pro Monthly - Neumorphic Dark (Highlighted) */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={mounted && !isPro ? { y: -15 } : { y: -10 }}
+                        disabled={isPro }
                         className="relative bg-[#2c221e] text-[#ebdcc9] rounded-[2.5rem] p-9 flex flex-col justify-between md:scale-105 md:-translate-y-4 z-10 h-[570px] overflow-hidden border border-[rgba(44,34,30,0.1)] transition-all duration-300"
                         style={{
                             boxShadow: "16px 16px 32px rgba(44,34,30,0.3), -12px -12px 28px rgba(255,253,247,0.04)"
@@ -175,10 +186,10 @@ export default function Pricing() {
                         <form action={'/api/checkout_sessions?type=monthly'} method="POST" onSubmit={handleProPlanClick}>
                             <button
                                 type="submit"
-                                disabled={mounted ? isPro : false}
+                                disabled={ isPro }
                                 className="w-full py-4 rounded-xl bg-rose-700 text-white font-black text-xs uppercase tracking-widest transition-all duration-200 hover:bg-rose-800 active:scale-95 shadow-[0_4px_12px_rgba(190,24,74,0.3)] disabled:bg-emerald-700 disabled:shadow-none disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
-                                {mounted && isPro ? (
+                                { isPro ? (
                                     <>
                                         <UserCheck size={14} />
                                         Active Pro Member
@@ -193,7 +204,7 @@ export default function Pricing() {
                     {/* Pro Yearly - Neumorphic Light */}
                     <motion.div
                         variants={cardVariants}
-                        whileHover={mounted && !isPro ? { y: -5 } : {}}
+                        disabled={ isPro}
                         className="bg-[#f4ece1] rounded-[2.5rem] p-8 flex flex-col justify-between h-[530px] transition-all duration-300"
                         style={{
                             boxShadow: "12px 12px 24px #d9d1c6, -12px -12px 24px #ffffff"
@@ -241,10 +252,10 @@ export default function Pricing() {
                         <form action={'/api/checkout_sessions?type=yearly'} method="POST" onSubmit={handleProPlanClick}>
                             <button
                                 type="submit"
-                                disabled={mounted ? isPro : false}
+                                disabled={ isPro}
                                 className="w-full py-3.5 rounded-xl border border-[#2c221e] bg-transparent text-[#2c221e] font-black text-xs uppercase tracking-widest transition-all duration-200 hover:bg-[#2c221e] hover:text-[#ebdcc9] active:scale-95 disabled:bg-emerald-700/10 disabled:text-emerald-800 disabled:border-emerald-700/20 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                             >
-                                {mounted && isPro ? (
+                                {isPro ? (
                                     <>
                                         <UserCheck size={14} />
                                         You are a Pro Member

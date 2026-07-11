@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BriefcaseBusiness, ArrowLeft, RefreshCw } from "lucide-react";
+import { LayoutDashboard, ArrowLeft, RefreshCw } from "lucide-react";
 import Link from "next/link";
 
-export default function NotFound() {
+export default function DashboardNotFound() {
     return (
         <div className="w-full min-h-screen bg-[#f4ece1] flex items-center justify-center px-4 text-[#2c221e]">
             <div className="max-w-md w-full text-center space-y-8">
 
-                {/* Neumorphic Icon */}
+                {/* Neumorphic Dashboard Icon */}
                 <div className="relative flex justify-center">
                     <motion.div
                         className="w-28 h-28 rounded-[2rem] bg-[#f4ece1] flex items-center justify-center relative z-10"
@@ -21,7 +21,7 @@ export default function NotFound() {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <BriefcaseBusiness
+                        <LayoutDashboard
                             size={44}
                             className="text-rose-600"
                         />
@@ -70,7 +70,7 @@ export default function NotFound() {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
                     >
-                        Page <span className="text-rose-600">Not Found</span>
+                        Dashboard <span className="text-rose-600">Page Not Found</span>
                     </motion.h2>
 
                     <motion.p
@@ -79,13 +79,13 @@ export default function NotFound() {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
                     >
-                        Sorry, the page you're looking for doesn't exist or may
-                        have been moved. Please check the URL or continue
-                        exploring opportunities on our Job Portal.
+                        The dashboard page you're trying to access doesn't exist,
+                        has been removed, or you may not have permission to view it.
+                        Return to your dashboard and continue managing your account.
                     </motion.p>
                 </div>
 
-                {/* Buttons */}
+                {/* Action Buttons */}
                 <motion.div
                     className="flex flex-col sm:flex-row gap-4 justify-center pt-4"
                     initial={{ opacity: 0, y: 15 }}
@@ -93,14 +93,14 @@ export default function NotFound() {
                     transition={{ delay: 0.5 }}
                 >
                     <Link
-                        href="/"
+                        href="/dashboard"
                         className="flex items-center justify-center gap-2 bg-[#2c221e] hover:bg-[#3d2f2a] text-[#ebdcc9] px-6 py-3.5 rounded-xl font-black uppercase tracking-wider text-xs shadow-md transition-all duration-200 active:scale-95 group"
                     >
                         <ArrowLeft
                             size={14}
                             className="transition-transform duration-200 group-hover:-translate-x-0.5 text-rose-400"
                         />
-                        <span>Go Home</span>
+                        <span>Dashboard Home</span>
                     </Link>
 
                     <button

@@ -31,7 +31,7 @@ export default function Footer() {
             <motion.div
                 className="mx-auto max-w-7xl px-6 py-12 sm:px-8 lg:px-12 rounded-[2.5rem] bg-[#ebdcc9]"
                 style={{
-                    boxShadow: "12px 12px 24px #c9bcab, -12px -12px 24px #fffdf7"
+                    boxShadow: "12px 12px 24px #c9bcab, -12px -12px 24px #fffdf0"
                 }}
                 variants={containerVariants}
                 initial="hidden"

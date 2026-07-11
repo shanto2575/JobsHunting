@@ -83,11 +83,8 @@ export default function Loading() {
                 <div className="space-y-4 w-full">
                     <div className="space-y-1">
                         <h3 className="text-xs font-black uppercase tracking-[0.25em] text-[#2c221e]/90">
-                            Scanning <span className="text-rose-600 font-serif italic font-normal lowercase tracking-normal text-sm">live opportunities</span>
+                            <span className="text-rose-600 font-serif italic font-normal lowercase tracking-normal text-sm">Scanning </span>
                         </h3>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#2c221e]/50">
-                            Compiling the ultimate career index
-                        </p>
                     </div>
 
                     {/* Neumorphic Slim Progress Bar Line */}

@@ -4,7 +4,7 @@ import { UserData } from "@/lib/api/admin/data";
 const ManageUsersPage = async () => {
     const users = await UserData();
     const data=users.result;
-
+    
     return (
         <div className="p-6 space-y-6">
 
